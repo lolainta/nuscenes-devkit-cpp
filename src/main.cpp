@@ -25,7 +25,8 @@ void bind_Nuscenes(py::module &m) {
       .def_property_readonly("categories", &Nuscenes::get_categories)
       .def_property_readonly("ego_positions", &Nuscenes::get_ego_positions)
       .def_property_readonly("instances", &Nuscenes::get_instances)
-      .def_property_readonly("logs", &Nuscenes::get_logs);
+      .def_property_readonly("logs", &Nuscenes::get_logs)
+      .def_property_readonly("maps", &Nuscenes::get_maps);
 }
 
 void bind_Attribute(py::module &m) {
@@ -84,6 +85,14 @@ void bind_Log(py::module &m) {
       .def_property_readonly("location", &Log::get_location);
 }
 
+void bind_Map(py::module &m) {
+  py::class_<Map>(m, "Map")
+      .def_property_readonly("token", &Map::get_token)
+      .def_property_readonly("filename", &Map::get_filename)
+      .def_property_readonly("category", &Map::get_category)
+      .def_property_readonly("log_tokens", &Map::get_log_tokens);
+}
+
 void bind_classes(py::module &m) {
   bind_Nuscenes(m);
   bind_Attribute(m);
@@ -91,6 +100,7 @@ void bind_classes(py::module &m) {
   bind_EgoPosition(m);
   bind_Instance(m);
   bind_Log(m);
+  bind_Map(m);
   bind_Rotation(m);
   bind_Translation(m);
 }

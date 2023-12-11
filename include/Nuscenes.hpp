@@ -9,6 +9,7 @@
 #include "EgoPosition.hpp"
 #include "Instance.hpp"
 #include "Log.hpp"
+#include "Map.hpp"
 #include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
@@ -24,6 +25,7 @@ class Nuscenes {
   std::vector<EgoPosition> ego_positions;
   std::vector<Instance> instances;
   std::vector<Log> logs;
+  std::vector<Map> maps;
 
   const json load_json(const fs::path &) const;
   void load_attributes();
@@ -31,6 +33,7 @@ class Nuscenes {
   void load_ego_positions();
   void load_instances();
   void load_logs();
+  void load_maps();
 
  public:
   const fs::path &get_path() const;
@@ -41,6 +44,7 @@ class Nuscenes {
   const std::vector<EgoPosition> &get_ego_positions() const;
   const std::vector<Instance> &get_instances() const;
   const std::vector<Log> &get_logs() const;
+  const std::vector<Map> &get_maps() const;
   Nuscenes() = delete;
   Nuscenes(std::string, std::string = "v1.0-mini", bool = false);
   ~Nuscenes() = default;

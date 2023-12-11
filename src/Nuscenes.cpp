@@ -16,6 +16,7 @@ Nuscenes::Nuscenes(std::string path, std::string version, bool verbose)
   this->load_ego_positions();
   this->load_instances();
   this->load_logs();
+  this->load_maps();
 }
 
 const json Nuscenes::load_json(const fs::path &path) const {
@@ -89,6 +90,17 @@ void Nuscenes::load_logs() {
   }
 }
 
+void Nuscenes::load_maps() {
+  fs::path map_path = this->path / this->version / "map.json";
+  json map_json = this->load_json(map_path);
+  for (auto &map : map_json) {
+    this->maps.emplace_back(map);
+  }
+  if (this->verbose) {
+    cout << "Loaded " << this->maps.size() << " maps." << endl;
+  }
+}
+
 const fs::path &Nuscenes::get_path() const { return this->path; }
 
 const std::string &Nuscenes::get_version() const { return this->version; }
@@ -112,3 +124,5 @@ const std::vector<Instance> &Nuscenes::get_instances() const {
 }
 
 const std::vector<Log> &Nuscenes::get_logs() const { return this->logs; }
+
+const std::vector<Map> &Nuscenes::get_maps() const { return this->maps; }
