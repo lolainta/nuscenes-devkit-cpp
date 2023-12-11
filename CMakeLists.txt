@@ -10,7 +10,8 @@ include_directories(extern/nlohmann_json/include)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
 add_library(nuscenes STATIC
                 src/Nuscenes.cpp
-                src/Attribute.cpp)
+                src/Attribute.cpp
+                src/Category.cpp)
 set_target_properties(nuscenes PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 pybind11_add_module(_nuscenes src/main.cpp)

@@ -20,7 +20,8 @@ void bind_Nuscenes(py::module &m) {
       .def_property_readonly("path", &Nuscenes::get_path)
       .def_property_readonly("version", &Nuscenes::get_version)
       .def_property_readonly("verbose", &Nuscenes::get_verbose)
-      .def_property_readonly("attributes", &Nuscenes::get_attributes);
+      .def_property_readonly("attributes", &Nuscenes::get_attributes)
+      .def_property_readonly("categories", &Nuscenes::get_categories);
 }
 
 void bind_Attribute(py::module &m) {
@@ -28,9 +29,18 @@ void bind_Attribute(py::module &m) {
       .def_property_readonly("token", &Attribute::get_token)
       .def_property_readonly("description", &Attribute::get_description);
 }
+
+void bind_Category(py::module &m) {
+  py::class_<Category>(m, "Category")
+      .def_property_readonly("token", &Category::get_token)
+      .def_property_readonly("name", &Category::get_name)
+      .def_property_readonly("description", &Category::get_description);
+}
+
 PYBIND11_MODULE(_nuscenes, m) {
-  bind_Attribute(m);
   bind_Nuscenes(m);
+  bind_Attribute(m);
+  bind_Category(m);
 #ifdef VERSION_INFO
   m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);
 #else
