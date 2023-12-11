@@ -4,7 +4,7 @@ import random
 
 
 def test_map():
-    nusc = nuscenes.Nuscenes(path="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert isinstance(nusc.maps, list)
     assert len(nusc.maps) > 0
     nmap = random.choice(nusc.maps)

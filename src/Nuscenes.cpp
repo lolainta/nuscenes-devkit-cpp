@@ -6,8 +6,9 @@
 using std::cout, std::endl;
 namespace fs = std::filesystem;
 
-Nuscenes::Nuscenes(std::string path, std::string version, bool verbose)
-    : path(fs::path(path)), version(version), verbose(verbose) {
+Nuscenes::Nuscenes(std::string dataroot, std::string version, bool verbose)
+    : dataroot(dataroot), version(version), verbose(verbose) {
+  this->path = fs::path(dataroot) / fs::path(version);
   if (this->verbose) {
     cout << "Loading Nuscenes dataset from " << path << endl;
   }
@@ -18,6 +19,7 @@ Nuscenes::Nuscenes(std::string path, std::string version, bool verbose)
   this->load_instances();
   this->load_logs();
   this->load_maps();
+  this->load_sample_datas();
 }
 
 const json Nuscenes::load_json(const fs::path &path) const {
@@ -36,7 +38,7 @@ const json Nuscenes::load_json(const fs::path &path) const {
 }
 
 void Nuscenes::load_annotations() {
-  fs::path ann_path = this->path / this->version / "sample_annotation.json";
+  fs::path ann_path = this->path / "sample_annotation.json";
   json ann_json = this->load_json(ann_path);
   for (auto &ann : ann_json) {
     this->annotations.emplace_back(ann);
@@ -47,7 +49,7 @@ void Nuscenes::load_annotations() {
 }
 
 void Nuscenes::load_attributes() {
-  fs::path attr_path = this->path / this->version / "attribute.json";
+  fs::path attr_path = this->path / "attribute.json";
   json attr_json = this->load_json(attr_path);
   for (auto &attr : attr_json) {
     this->attributes.emplace_back(attr);
@@ -58,7 +60,7 @@ void Nuscenes::load_attributes() {
 }
 
 void Nuscenes::load_categories() {
-  fs::path cat_path = this->path / this->version / "category.json";
+  fs::path cat_path = this->path / "category.json";
   json cat_json = this->load_json(cat_path);
   for (auto &cat : cat_json) {
     this->categories.emplace_back(cat);
@@ -69,7 +71,7 @@ void Nuscenes::load_categories() {
 }
 
 void Nuscenes::load_ego_positions() {
-  fs::path ego_path = this->path / this->version / "ego_pose.json";
+  fs::path ego_path = this->path / "ego_pose.json";
   json ego_json = this->load_json(ego_path);
   for (auto &ego : ego_json) {
     this->ego_positions.emplace_back(ego);
@@ -81,7 +83,7 @@ void Nuscenes::load_ego_positions() {
 }
 
 void Nuscenes::load_instances() {
-  fs::path inst_path = this->path / this->version / "instance.json";
+  fs::path inst_path = this->path / "instance.json";
   json inst_json = this->load_json(inst_path);
   for (auto &inst : inst_json) {
     this->instances.emplace_back(inst);
@@ -92,7 +94,7 @@ void Nuscenes::load_instances() {
 }
 
 void Nuscenes::load_logs() {
-  fs::path log_path = this->path / this->version / "log.json";
+  fs::path log_path = this->path / "log.json";
   json log_json = this->load_json(log_path);
   for (auto &log : log_json) {
     this->logs.emplace_back(log);
@@ -103,7 +105,7 @@ void Nuscenes::load_logs() {
 }
 
 void Nuscenes::load_maps() {
-  fs::path map_path = this->path / this->version / "map.json";
+  fs::path map_path = this->path / "map.json";
   json map_json = this->load_json(map_path);
   for (auto &map : map_json) {
     this->maps.emplace_back(map);
@@ -113,7 +115,20 @@ void Nuscenes::load_maps() {
   }
 }
 
+void Nuscenes::load_sample_datas() {
+  fs::path data_path = this->path / "sample_data.json";
+  json data_json = this->load_json(data_path);
+  for (auto &data : data_json) {
+    this->datas.emplace_back(data);
+  }
+  if (this->verbose) {
+    cout << "Loaded " << this->datas.size() << " sample datas." << endl;
+  }
+}
+
 const fs::path &Nuscenes::get_path() const { return this->path; }
+
+const fs::path &Nuscenes::get_dataroot() const { return this->dataroot; }
 
 const std::string &Nuscenes::get_version() const { return this->version; }
 
@@ -142,3 +157,7 @@ const std::vector<Instance> &Nuscenes::get_instances() const {
 const std::vector<Log> &Nuscenes::get_logs() const { return this->logs; }
 
 const std::vector<Map> &Nuscenes::get_maps() const { return this->maps; }
+
+const std::vector<SampleData> &Nuscenes::get_sample_datas() const {
+  return this->datas;
+}

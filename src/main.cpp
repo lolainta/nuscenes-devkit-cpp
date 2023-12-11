@@ -15,10 +15,11 @@ namespace py = pybind11;
 
 void bind_Nuscenes(py::module &m) {
   py::class_<Nuscenes>(m, "Nuscenes")
-      .def(py::init<std::string, std::string, bool>(), py::arg("path"),
+      .def(py::init<std::string, std::string, bool>(), py::arg("dataroot"),
            py::arg("version") = std::string("v1.0-mini"),
            py::arg("verbose") = false)
       .def_property_readonly("path", &Nuscenes::get_path)
+      .def_property_readonly("dataroot", &Nuscenes::get_dataroot)
       .def_property_readonly("version", &Nuscenes::get_version)
       .def_property_readonly("verbose", &Nuscenes::get_verbose)
       .def_property_readonly("annotations", &Nuscenes::get_annotations)
@@ -27,7 +28,8 @@ void bind_Nuscenes(py::module &m) {
       .def_property_readonly("ego_positions", &Nuscenes::get_ego_positions)
       .def_property_readonly("instances", &Nuscenes::get_instances)
       .def_property_readonly("logs", &Nuscenes::get_logs)
-      .def_property_readonly("maps", &Nuscenes::get_maps);
+      .def_property_readonly("maps", &Nuscenes::get_maps)
+      .def_property_readonly("sample_datas", &Nuscenes::get_sample_datas);
 }
 
 void bind_Annotation(py::module &m) {
@@ -75,6 +77,23 @@ void bind_Rotation(py::module &m) {
       .def_property_readonly("w", &Rotation::get_w);
 }
 
+void bind_SampleData(py::module &m) {
+  py::class_<SampleData>(m, "SampleData")
+      .def_property_readonly("token", &SampleData::get_token)
+      .def_property_readonly("sample_token", &SampleData::get_sample_token)
+      .def_property_readonly("ego_pose_token", &SampleData::get_ego_pose_token)
+      // .def_property_readonly("calibrated_sensor_token",
+      //                        &SampleData::get_calibrated_sensor_token)
+      .def_property_readonly("timestamp", &SampleData::get_timestamp)
+      .def_property_readonly("fileformat", &SampleData::get_fileformat)
+      .def_property_readonly("is_key_frame", &SampleData::get_is_key_frame)
+      .def_property_readonly("height", &SampleData::get_height)
+      .def_property_readonly("width", &SampleData::get_width)
+      .def_property_readonly("filename", &SampleData::get_filename)
+      .def_property_readonly("prev", &SampleData::get_prev)
+      .def_property_readonly("next", &SampleData::get_next);
+}
+
 void bind_Translation(py::module &m) {
   py::class_<Translation>(m, "Translation")
       .def_property_readonly("x", &Translation::get_x)
@@ -120,6 +139,7 @@ void bind_classes(py::module &m) {
   bind_Log(m);
   bind_Map(m);
   bind_Rotation(m);
+  bind_SampleData(m);
   bind_Translation(m);
 }
 

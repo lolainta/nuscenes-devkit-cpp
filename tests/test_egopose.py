@@ -3,7 +3,7 @@ import random
 
 
 def test_egopose():
-    nusc = nuscenes.Nuscenes(path="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert isinstance(nusc.ego_positions, list)
     assert len(nusc.ego_positions) != 0
     assert isinstance(nusc.ego_positions[0], nuscenes.EgoPosition)

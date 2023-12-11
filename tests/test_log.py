@@ -4,7 +4,7 @@ import random
 
 
 def test_log():
-    nusc = nuscenes.Nuscenes(path="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert isinstance(nusc.logs, list)
     assert len(nusc.logs) != 0
     assert isinstance(nusc.logs[0], nuscenes.Log)

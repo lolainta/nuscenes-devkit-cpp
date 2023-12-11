@@ -3,7 +3,7 @@ import random
 
 
 def test_rotation():
-    nusc = nuscenes.Nuscenes(path="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert isinstance(nusc.ego_positions, list)
     assert len(nusc.ego_positions) != 0
     ego_pose = random.sample(nusc.ego_positions, 1)[0]

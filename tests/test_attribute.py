@@ -3,7 +3,7 @@ import random
 
 
 def test_attributes():
-    nusc = nuscenes.Nuscenes(path="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert isinstance(nusc.attributes, list)
     assert len(nusc.attributes) != 0
     assert isinstance(nusc.attributes[0], nuscenes.Attribute)
