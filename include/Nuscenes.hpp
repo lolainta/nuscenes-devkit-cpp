@@ -7,6 +7,7 @@
 #include "Attribute.hpp"
 #include "Category.hpp"
 #include "EgoPosition.hpp"
+#include "Instance.hpp"
 #include "Log.hpp"
 #include "nlohmann/json.hpp"
 
@@ -21,12 +22,14 @@ class Nuscenes {
   std::vector<Attribute> attributes;
   std::vector<Category> categories;
   std::vector<EgoPosition> ego_positions;
+  std::vector<Instance> instances;
   std::vector<Log> logs;
 
   const json load_json(const fs::path &) const;
   void load_attributes();
   void load_categories();
   void load_ego_positions();
+  void load_instances();
   void load_logs();
 
  public:
@@ -36,6 +39,7 @@ class Nuscenes {
   const std::vector<Attribute> &get_attributes() const;
   const std::vector<Category> &get_categories() const;
   const std::vector<EgoPosition> &get_ego_positions() const;
+  const std::vector<Instance> &get_instances() const;
   const std::vector<Log> &get_logs() const;
   Nuscenes() = delete;
   Nuscenes(std::string, std::string = "v1.0-mini", bool = false);

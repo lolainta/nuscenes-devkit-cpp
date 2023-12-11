@@ -24,6 +24,7 @@ void bind_Nuscenes(py::module &m) {
       .def_property_readonly("attributes", &Nuscenes::get_attributes)
       .def_property_readonly("categories", &Nuscenes::get_categories)
       .def_property_readonly("ego_positions", &Nuscenes::get_ego_positions)
+      .def_property_readonly("instances", &Nuscenes::get_instances)
       .def_property_readonly("logs", &Nuscenes::get_logs);
 }
 
@@ -63,6 +64,17 @@ void bind_Translation(py::module &m) {
       .def_property_readonly("z", &Translation::get_z);
 }
 
+void bind_Instance(py::module &m) {
+  py::class_<Instance>(m, "Instance")
+      .def_property_readonly("token", &Instance::get_token)
+      .def_property_readonly("category_token", &Instance::get_category_token)
+      .def_property_readonly("nbr_annotations", &Instance::get_nbr_annotations)
+      .def_property_readonly("first_annotation_token",
+                             &Instance::get_first_annotation_token)
+      .def_property_readonly("last_annotation_token",
+                             &Instance::get_last_annotation_token);
+}
+
 void bind_Log(py::module &m) {
   py::class_<Log>(m, "Log")
       .def_property_readonly("token", &Log::get_token)
@@ -70,6 +82,17 @@ void bind_Log(py::module &m) {
       .def_property_readonly("vehicle", &Log::get_vehicle)
       .def_property_readonly("date_captured", &Log::get_date_captured)
       .def_property_readonly("location", &Log::get_location);
+}
+
+void bind_classes(py::module &m) {
+  bind_Nuscenes(m);
+  bind_Attribute(m);
+  bind_Category(m);
+  bind_EgoPosition(m);
+  bind_Instance(m);
+  bind_Log(m);
+  bind_Rotation(m);
+  bind_Translation(m);
 }
 
 void bind_Location(py::module &m) {
@@ -81,14 +104,7 @@ void bind_Location(py::module &m) {
 }
 
 PYBIND11_MODULE(_nuscenes, m) {
-  bind_Nuscenes(m);
-  bind_Attribute(m);
-  bind_Category(m);
-  bind_EgoPosition(m);
-  bind_Log(m);
-  bind_Rotation(m);
-  bind_Translation(m);
-
+  bind_classes(m);
   bind_Location(m);
 #ifdef VERSION_INFO
   m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);
