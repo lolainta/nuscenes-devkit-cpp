@@ -1,5 +1,6 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <pybind11/stl/filesystem.h>
 
 #include <filesystem>
 #include <string>
@@ -22,7 +23,8 @@ void bind_Nuscenes(py::module &m) {
       .def_property_readonly("verbose", &Nuscenes::get_verbose)
       .def_property_readonly("attributes", &Nuscenes::get_attributes)
       .def_property_readonly("categories", &Nuscenes::get_categories)
-      .def_property_readonly("ego_positions", &Nuscenes::get_ego_positions);
+      .def_property_readonly("ego_positions", &Nuscenes::get_ego_positions)
+      .def_property_readonly("logs", &Nuscenes::get_logs);
 }
 
 void bind_Attribute(py::module &m) {
@@ -61,13 +63,33 @@ void bind_Translation(py::module &m) {
       .def_property_readonly("z", &Translation::get_z);
 }
 
+void bind_Log(py::module &m) {
+  py::class_<Log>(m, "Log")
+      .def_property_readonly("token", &Log::get_token)
+      .def_property_readonly("logfile", &Log::get_logfile)
+      .def_property_readonly("vehicle", &Log::get_vehicle)
+      .def_property_readonly("date_captured", &Log::get_date_captured)
+      .def_property_readonly("location", &Log::get_location);
+}
+
+void bind_Location(py::module &m) {
+  py::enum_<Location>(m, "Location")
+      .value("BostonSeaport", Location::BostonSeaport)
+      .value("SingaporeOnenorth", Location::SingaporeOnenorth)
+      .value("SingaporeHollandvillage", Location::SingaporeHollandvillage)
+      .value("SingaporeQueenstown", Location::SingaporeQueenstown);
+}
+
 PYBIND11_MODULE(_nuscenes, m) {
   bind_Nuscenes(m);
   bind_Attribute(m);
   bind_Category(m);
   bind_EgoPosition(m);
+  bind_Log(m);
   bind_Rotation(m);
   bind_Translation(m);
+
+  bind_Location(m);
 #ifdef VERSION_INFO
   m.attr("__version__") = MACRO_STRINGIFY(VERSION_INFO);
 #else

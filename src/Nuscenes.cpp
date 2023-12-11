@@ -21,6 +21,8 @@ Nuscenes::Nuscenes(std::string path, std::string version, bool verbose)
   if (this->verbose)
     cout << "Loaded " << this->ego_positions.size() << " ego positions."
          << endl;
+  this->load_logs();
+  if (this->verbose) cout << "Loaded " << this->logs.size() << " logs." << endl;
 }
 
 const json Nuscenes::load_json(const fs::path &path) const {
@@ -62,6 +64,14 @@ void Nuscenes::load_ego_positions() {
   }
 }
 
+void Nuscenes::load_logs() {
+  fs::path log_path = this->path / this->version / "log.json";
+  json log_json = this->load_json(log_path);
+  for (auto &log : log_json) {
+    this->logs.emplace_back(log);
+  }
+}
+
 const fs::path &Nuscenes::get_path() const { return this->path; }
 
 const std::string &Nuscenes::get_version() const { return this->version; }
@@ -79,3 +89,5 @@ const std::vector<Category> &Nuscenes::get_categories() const {
 const std::vector<EgoPosition> &Nuscenes::get_ego_positions() const {
   return this->ego_positions;
 }
+
+const std::vector<Log> &Nuscenes::get_logs() const { return this->logs; }
