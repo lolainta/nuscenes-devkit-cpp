@@ -3,12 +3,8 @@
 
 #include "nlohmann/json.hpp"
 
-namespace fs = std::filesystem;
-using json = nlohmann::json;
-
 class Category {
  private:
-  json raw;
   std::string token;
   std::string name;
   std::string description;
