@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+#include "Annotation.hpp"
 #include "Attribute.hpp"
 #include "Category.hpp"
 #include "EgoPosition.hpp"
@@ -20,6 +21,7 @@ class Nuscenes {
   fs::path path;
   std::string version;
   bool verbose;
+  std::vector<Annotation> annotations;
   std::vector<Attribute> attributes;
   std::vector<Category> categories;
   std::vector<EgoPosition> ego_positions;
@@ -28,6 +30,7 @@ class Nuscenes {
   std::vector<Map> maps;
 
   const json load_json(const fs::path &) const;
+  void load_annotations();
   void load_attributes();
   void load_categories();
   void load_ego_positions();
@@ -39,6 +42,7 @@ class Nuscenes {
   const fs::path &get_path() const;
   const std::string &get_version() const;
   const bool &get_verbose() const;
+  const std::vector<Annotation> &get_annotations() const;
   const std::vector<Attribute> &get_attributes() const;
   const std::vector<Category> &get_categories() const;
   const std::vector<EgoPosition> &get_ego_positions() const;

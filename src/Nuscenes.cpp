@@ -11,6 +11,7 @@ Nuscenes::Nuscenes(std::string path, std::string version, bool verbose)
   if (this->verbose) {
     cout << "Loading Nuscenes dataset from " << path << endl;
   }
+  this->load_annotations();
   this->load_attributes();
   this->load_categories();
   this->load_ego_positions();
@@ -23,7 +24,7 @@ const json Nuscenes::load_json(const fs::path &path) const {
   json ret;
   try {
     if (!fs::exists(path)) {
-      throw std::runtime_error("File not found.");
+      throw std::runtime_error("File " + path.string() + " does not exist.");
     }
     std::ifstream file(path);
     file >> ret;
@@ -32,6 +33,17 @@ const json Nuscenes::load_json(const fs::path &path) const {
     exit(1);
   }
   return ret;
+}
+
+void Nuscenes::load_annotations() {
+  fs::path ann_path = this->path / this->version / "sample_annotation.json";
+  json ann_json = this->load_json(ann_path);
+  for (auto &ann : ann_json) {
+    this->annotations.emplace_back(ann);
+  }
+  if (this->verbose) {
+    cout << "Loaded " << this->annotations.size() << " annotations." << endl;
+  }
 }
 
 void Nuscenes::load_attributes() {
@@ -106,6 +118,10 @@ const fs::path &Nuscenes::get_path() const { return this->path; }
 const std::string &Nuscenes::get_version() const { return this->version; }
 
 const bool &Nuscenes::get_verbose() const { return this->verbose; }
+
+const std::vector<Annotation> &Nuscenes::get_annotations() const {
+  return this->annotations;
+}
 
 const std::vector<Attribute> &Nuscenes::get_attributes() const {
   return this->attributes;

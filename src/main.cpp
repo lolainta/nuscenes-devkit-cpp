@@ -21,12 +21,29 @@ void bind_Nuscenes(py::module &m) {
       .def_property_readonly("path", &Nuscenes::get_path)
       .def_property_readonly("version", &Nuscenes::get_version)
       .def_property_readonly("verbose", &Nuscenes::get_verbose)
+      .def_property_readonly("annotations", &Nuscenes::get_annotations)
       .def_property_readonly("attributes", &Nuscenes::get_attributes)
       .def_property_readonly("categories", &Nuscenes::get_categories)
       .def_property_readonly("ego_positions", &Nuscenes::get_ego_positions)
       .def_property_readonly("instances", &Nuscenes::get_instances)
       .def_property_readonly("logs", &Nuscenes::get_logs)
       .def_property_readonly("maps", &Nuscenes::get_maps);
+}
+
+void bind_Annotation(py::module &m) {
+  py::class_<Annotation>(m, "Annotation")
+      .def_property_readonly("token", &Annotation::get_token)
+      .def_property_readonly("sample_token", &Annotation::get_sample_token)
+      .def_property_readonly("instance_token", &Annotation::get_instance_token)
+      .def_property_readonly("attribute_tokens",
+                             &Annotation::get_attribute_tokens)
+      .def_property_readonly("visibility_token",
+                             &Annotation::get_visibility_token)
+      .def_property_readonly("translation", &Annotation::get_translation)
+      .def_property_readonly("size", &Annotation::get_size)
+      .def_property_readonly("rotation", &Annotation::get_rotation)
+      .def_property_readonly("prev", &Annotation::get_prev)
+      .def_property_readonly("next", &Annotation::get_next);
 }
 
 void bind_Attribute(py::module &m) {
@@ -95,6 +112,7 @@ void bind_Map(py::module &m) {
 
 void bind_classes(py::module &m) {
   bind_Nuscenes(m);
+  bind_Annotation(m);
   bind_Attribute(m);
   bind_Category(m);
   bind_EgoPosition(m);
