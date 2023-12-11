@@ -1,15 +1,9 @@
-#include "attribute.hpp"
+#include "Attribute.hpp"
 
-#include <fstream>
+Attribute::Attribute(std::string token, std::string description)
+    : token(token), description(description) {}
 
-namespace fs = std::filesystem;
-
-Attribute::Attribute(fs::path path) {
-  std::ifstream attribute_file(path);
-  if (attribute_file.is_open()) {
-    attribute_file >> this->raw;
-    attribute_file.close();
-  } else {
-    std::cout << "Unable to open file: " << path << std::endl;
-  }
+const std::string &Attribute::get_token() const { return this->token; }
+const std::string &Attribute::get_description() const {
+  return this->description;
 }
