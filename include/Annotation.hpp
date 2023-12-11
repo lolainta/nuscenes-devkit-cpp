@@ -16,7 +16,7 @@ class Annotation {
   std::vector<std::string> attribute_tokens;
   Translation translation;
   Rotation rotation;
-  std::vector<double> size;
+  std::array<double, 3> size;
   std::string prev;
   std::string next;
 
@@ -28,13 +28,13 @@ class Annotation {
   const std::vector<std::string> &get_attribute_tokens() const;
   const Translation &get_translation() const;
   const Rotation &get_rotation() const;
-  const std::vector<double> &get_size() const;
+  const std::array<double, 3> &get_size() const;
   const std::string &get_prev() const;
   const std::string &get_next() const;
   Annotation() = delete;
   Annotation(const json &);
   Annotation(std::string, std::string, std::string, std::string,
              std::vector<std::string>, Translation, Rotation,
-             std::vector<double>, std::string, std::string);
+             std::array<double, 3>, std::string, std::string);
   ~Annotation() = default;
 };

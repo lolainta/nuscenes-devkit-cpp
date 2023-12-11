@@ -4,7 +4,7 @@ Annotation::Annotation(std::string token, std::string sample_token,
                        std::string instance_token, std::string visibility_token,
                        std::vector<std::string> attribute_tokens,
                        Translation translation, Rotation rotation,
-                       std::vector<double> size, std::string prev,
+                       std::array<double, 3> size, std::string prev,
                        std::string next)
     : token(token),
       sample_token(sample_token),
@@ -26,7 +26,7 @@ Annotation::Annotation(const json &j)
           j.at("attribute_tokens").get<std::vector<std::string>>()),
       translation(j.at("translation")),
       rotation(j.at("rotation")),
-      size(j.at("size").get<std::vector<double>>()),
+      size(j.at("size").get<std::array<double, 3>>()),
       prev(j.at("prev").get<std::string>()),
       next(j.at("next").get<std::string>()) {}
 
@@ -54,7 +54,7 @@ const Translation &Annotation::get_translation() const {
 
 const Rotation &Annotation::get_rotation() const { return this->rotation; }
 
-const std::vector<double> &Annotation::get_size() const { return this->size; }
+const std::array<double, 3> &Annotation::get_size() const { return this->size; }
 
 const std::string &Annotation::get_prev() const { return this->prev; }
 
