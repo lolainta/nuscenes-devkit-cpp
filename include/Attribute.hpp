@@ -3,6 +3,8 @@
 
 #include "nlohmann/json.hpp"
 
+using json = nlohmann::json;
+
 class Attribute {
  private:
   std::string token;
@@ -12,6 +14,7 @@ class Attribute {
   const std::string &get_token() const;
   const std::string &get_description() const;
   Attribute() = delete;
+  Attribute(const json &);
   Attribute(std::string, std::string);
   ~Attribute() = default;
 };

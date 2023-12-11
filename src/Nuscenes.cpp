@@ -17,6 +17,10 @@ Nuscenes::Nuscenes(std::string path, std::string version, bool verbose)
   this->load_categories();
   if (this->verbose)
     cout << "Loaded " << this->categories.size() << " categories." << endl;
+  this->load_ego_positions();
+  if (this->verbose)
+    cout << "Loaded " << this->ego_positions.size() << " ego positions."
+         << endl;
 }
 
 const json Nuscenes::load_json(const fs::path &path) const {
@@ -38,7 +42,7 @@ void Nuscenes::load_attributes() {
   fs::path attr_path = this->path / this->version / "attribute.json";
   json attr_json = this->load_json(attr_path);
   for (auto &attr : attr_json) {
-    this->attributes.emplace_back(attr["token"], attr["description"]);
+    this->attributes.emplace_back(attr);
   }
 }
 
@@ -46,8 +50,15 @@ void Nuscenes::load_categories() {
   fs::path cat_path = this->path / this->version / "category.json";
   json cat_json = this->load_json(cat_path);
   for (auto &cat : cat_json) {
-    this->categories.emplace_back(cat["token"], cat["name"],
-                                  cat["description"]);
+    this->categories.emplace_back(cat);
+  }
+}
+
+void Nuscenes::load_ego_positions() {
+  fs::path ego_path = this->path / this->version / "ego_pose.json";
+  json ego_json = this->load_json(ego_path);
+  for (auto &ego : ego_json) {
+    this->ego_positions.emplace_back(ego);
   }
 }
 
@@ -63,4 +74,8 @@ const std::vector<Attribute> &Nuscenes::get_attributes() const {
 
 const std::vector<Category> &Nuscenes::get_categories() const {
   return this->categories;
+}
+
+const std::vector<EgoPosition> &Nuscenes::get_ego_positions() const {
+  return this->ego_positions;
 }

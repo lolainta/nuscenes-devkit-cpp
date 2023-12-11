@@ -6,7 +6,9 @@
 
 #include "Attribute.hpp"
 #include "Category.hpp"
+#include "EgoPosition.hpp"
 #include "nlohmann/json.hpp"
+
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
@@ -17,9 +19,12 @@ class Nuscenes {
   bool verbose;
   std::vector<Attribute> attributes;
   std::vector<Category> categories;
+  std::vector<EgoPosition> ego_positions;
+
   const json load_json(const fs::path &) const;
   void load_attributes();
   void load_categories();
+  void load_ego_positions();
 
  public:
   const fs::path &get_path() const;
@@ -27,6 +32,7 @@ class Nuscenes {
   const bool &get_verbose() const;
   const std::vector<Attribute> &get_attributes() const;
   const std::vector<Category> &get_categories() const;
+  const std::vector<EgoPosition> &get_ego_positions() const;
   Nuscenes() = delete;
   Nuscenes(std::string, std::string = "v1.0-mini", bool = false);
   ~Nuscenes() = default;

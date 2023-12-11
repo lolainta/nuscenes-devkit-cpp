@@ -2,6 +2,8 @@
 
 #include "nlohmann/json.hpp"
 
+using json = nlohmann::json;
+
 class Rotation {
  private:
   long double x;
@@ -14,7 +16,11 @@ class Rotation {
   const long double &get_y() const;
   const long double &get_z() const;
   const long double &get_w() const;
+
   Rotation() = delete;
+  Rotation(const json &);
   Rotation(long double, long double, long double, long double);
+  Rotation(const Rotation &) = default;
+  Rotation(Rotation &&) = default;
   ~Rotation() = default;
 };

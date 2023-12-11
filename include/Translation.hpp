@@ -2,6 +2,8 @@
 
 #include "nlohmann/json.hpp"
 
+using json = nlohmann::json;
+
 class Translation {
  private:
   long double x;
@@ -13,6 +15,9 @@ class Translation {
   const long double &get_y() const;
   const long double &get_z() const;
   Translation() = delete;
+  Translation(const json &);
   Translation(long double, long double, long double);
+  Translation(const Translation &) = default;
+  Translation(Translation &&) = default;
   ~Translation() = default;
 };
