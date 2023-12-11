@@ -4,9 +4,25 @@ import random
 
 def test_annotation():
     nusc = nuscenes.Nuscenes(path="./data", version="v1.0-mini", verbose=False)
-    assert isinstance(nusc.attributes, list)
-    assert len(nusc.attributes) != 0
-    assert isinstance(nusc.attributes[0], nuscenes.Attribute)
-    assert isinstance(nusc.attributes[0].token, str)
-    assert random.sample(nusc.attributes, 1)[0].token is not None
-    assert isinstance(nusc.attributes[0].description, str)
+    assert isinstance(nusc.annotations, list)
+    assert len(nusc.annotations) != 0
+    ann = random.choice(nusc.annotations)
+    assert isinstance(ann, nuscenes.Annotation)
+    assert isinstance(ann.token, str)
+    assert ann.token is not None
+    assert isinstance(ann.sample_token, str)
+    assert ann.sample_token is not None
+    assert isinstance(ann.instance_token, str)
+    assert ann.instance_token is not None
+    assert isinstance(ann.attribute_tokens, list)
+    assert all(isinstance(t, str) for t in ann.attribute_tokens)
+    assert isinstance(ann.visibility_token, str)
+    assert ann.visibility_token is not None
+    assert isinstance(ann.translation, nuscenes.Translation)
+    assert isinstance(ann.rotation, nuscenes.Rotation)
+    assert isinstance(ann.size, list)
+    assert all(len(a.size) == 3 for a in nusc.annotations)
+    assert isinstance(ann.prev, str)
+    assert ann.prev is not None
+    assert isinstance(ann.next, str)
+    assert ann.next is not None

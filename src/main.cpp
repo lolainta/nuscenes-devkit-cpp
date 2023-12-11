@@ -40,8 +40,8 @@ void bind_Annotation(py::module &m) {
       .def_property_readonly("visibility_token",
                              &Annotation::get_visibility_token)
       .def_property_readonly("translation", &Annotation::get_translation)
-      .def_property_readonly("size", &Annotation::get_size)
       .def_property_readonly("rotation", &Annotation::get_rotation)
+      .def_property_readonly("size", &Annotation::get_size)
       .def_property_readonly("prev", &Annotation::get_prev)
       .def_property_readonly("next", &Annotation::get_next);
 }
