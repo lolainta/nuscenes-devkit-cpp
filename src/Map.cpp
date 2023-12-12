@@ -1,7 +1,8 @@
 #include "Map.hpp"
 
-Map::Map(std::string token, fs::path filename, std::string category,
-         std::vector<std::string> log_tokens)
+Map::Map(const std::string& token, const fs::path& filename,
+         const std::string& category,
+         const std::vector<std::string>& log_tokens)
     : token(token),
       filename(filename),
       category(category),

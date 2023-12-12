@@ -27,6 +27,7 @@ class EgoPosition {
 
   EgoPosition() = delete;
   EgoPosition(const json &);
-  EgoPosition(std::string, uint64_t, Rotation, Translation);
+  EgoPosition(const std::string &, uint64_t, const Rotation &,
+              const Translation &);
   ~EgoPosition() = default;
 };

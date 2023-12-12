@@ -1,11 +1,12 @@
 #include "SampleData.hpp"
 
-SampleData::SampleData(std::string token, std::string sample_token,
-                       std::string ego_pose_token,
-                       std::string calibrated_sensor_token, uint64_t timestamp,
-                       std::string fileformat, bool is_key_frame, size_t width,
-                       size_t height, fs::path filename, std::string prev_token,
-                       std::string next_token)
+SampleData::SampleData(const std::string &token, const std::string &sample_token,
+                       const std::string &ego_pose_token,
+                       const std::string &calibrated_sensor_token,
+                       uint64_t timestamp, const std::string &fileformat,
+                       bool is_key_frame, size_t width, size_t height,
+                       const fs::path &filename, const std::string &prev_token,
+                       const std::string &next_token)
     : token(token),
       sample_token(sample_token),
       ego_pose_token(ego_pose_token),

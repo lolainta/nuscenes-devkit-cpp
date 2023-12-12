@@ -22,6 +22,6 @@ class Category {
 
   Category() = delete;
   Category(const json &);
-  Category(std::string, std::string, std::string);
+  Category(const std::string &, const std::string &, const std::string &);
   ~Category() = default;
 };

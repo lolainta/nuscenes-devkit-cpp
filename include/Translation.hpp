@@ -21,7 +21,7 @@ class Translation {
 
   Translation() = delete;
   Translation(const json &);
-  Translation(long double, long double, long double);
+  Translation(const long double &, const long double &, const long double &);
   Translation(const Translation &) = default;
   Translation(Translation &&) = default;
   ~Translation() = default;

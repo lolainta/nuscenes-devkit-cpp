@@ -29,7 +29,8 @@ class Log {
   Log &operator=(const Log &) = default;
 
   Log() = delete;
-  Log(std::string, fs::path, std::string, std::string, Location);
+  Log(const std::string &, const fs::path &, const std::string &,
+      const std::string &, const Location &);
   Log(const json &);
   ~Log() = default;
 };

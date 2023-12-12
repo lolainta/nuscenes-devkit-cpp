@@ -1,7 +1,8 @@
 #include "EgoPosition.hpp"
 
-EgoPosition::EgoPosition(std::string token, uint64_t timestamp,
-                         Rotation rotation, Translation translation)
+EgoPosition::EgoPosition(const std::string &token, uint64_t timestamp,
+                         const Rotation &rotation,
+                         const Translation &translation)
     : token(token),
       timestamp(timestamp),
       rotation(rotation),

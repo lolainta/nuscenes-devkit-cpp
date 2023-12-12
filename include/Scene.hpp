@@ -38,7 +38,8 @@ class Scene {
 
   Scene() = delete;
   Scene(const json &);
-  Scene(std::string, std::string, size_t, std::string, std::string, std::string,
-        std::string);
+  Scene(const std::string &, const std::string &, const size_t &,
+        const std::string &, const std::string &, const std::string &,
+        const std::string &);
   ~Scene() = default;
 };

@@ -1,6 +1,7 @@
 #include "Translation.hpp"
 
-Translation::Translation(long double x, long double y, long double z)
+Translation::Translation(const long double &x, const long double &y,
+                         const long double &z)
     : x(x), y(y), z(z) {}
 
 Translation::Translation(const json &j) : Translation(j[0], j[1], j[2]) {}

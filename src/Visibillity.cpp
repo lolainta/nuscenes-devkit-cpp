@@ -1,7 +1,7 @@
 #include "Visibility.hpp"
 
-Visibility::Visibility(std::string token, std::string level,
-                       std::string description)
+Visibility::Visibility(const std::string &token, const std::string &level,
+                       const std::string &description)
     : token(token), level(level), description(description) {}
 
 Visibility::Visibility(const json &j)

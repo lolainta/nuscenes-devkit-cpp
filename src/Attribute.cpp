@@ -1,6 +1,6 @@
 #include "Attribute.hpp"
 
-Attribute::Attribute(std::string token, std::string description)
+Attribute::Attribute(const std::string &token, const std::string &description)
     : token(token), description(description) {}
 
 Attribute::Attribute(const json &j)

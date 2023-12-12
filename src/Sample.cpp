@@ -1,7 +1,8 @@
 #include "Sample.hpp"
 
-Sample::Sample(std::string token, std::string scene_token, uint64_t timestamp,
-               std::string prev_token, std::string next_token)
+Sample::Sample(const std::string &token, const std::string &scene_token,
+               uint64_t timestamp, const std::string &prev_token,
+               const std::string &next_token)
     : token(token),
       scene_token(scene_token),
       timestamp(timestamp),

@@ -34,6 +34,7 @@ class Instance {
 
   Instance() = delete;
   Instance(const json &);
-  Instance(std::string, std::string, size_t, std::string, std::string);
+  Instance(const std::string &, const std::string &, size_t,
+           const std::string &, const std::string &);
   ~Instance() = default;
 };

@@ -1,11 +1,14 @@
 #include "Annotation.hpp"
 
-Annotation::Annotation(std::string token, std::string sample_token,
-                       std::string instance_token, std::string visibility_token,
-                       std::vector<std::string> attribute_tokens,
-                       Translation translation, Rotation rotation,
-                       std::array<double, 3> size, std::string prev_token,
-                       std::string next_token)
+Annotation::Annotation(const std::string &token,
+                       const std::string &sample_token,
+                       const std::string &instance_token,
+                       const std::string &visibility_token,
+                       const std::vector<std::string> &attribute_tokens,
+                       const Translation &translation, const Rotation &rotation,
+                       const std::array<double, 3> &size,
+                       const std::string &prev_token,
+                       const std::string &next_token)
     : token(token),
       sample_token(sample_token),
       instance_token(instance_token),

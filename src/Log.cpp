@@ -1,7 +1,8 @@
 #include "Log.hpp"
 
-Log::Log(std::string token, fs::path logfile, std::string vehicle,
-         std::string date_capetured, Location location)
+Log::Log(const std::string& token, const fs::path& logfile,
+         const std::string& vehicle, const std::string& date_capetured,
+         const Location& location)
     : token(token),
       logfile(logfile),
       vehicle(vehicle),
