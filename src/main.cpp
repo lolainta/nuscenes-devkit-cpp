@@ -29,6 +29,7 @@ void bind_Nuscenes(py::module &m) {
       .def_property_readonly("instances", &Nuscenes::get_instances)
       .def_property_readonly("logs", &Nuscenes::get_logs)
       .def_property_readonly("maps", &Nuscenes::get_maps)
+      .def_property_readonly("samples", &Nuscenes::get_samples)
       .def_property_readonly("sample_datas", &Nuscenes::get_sample_datas);
 }
 
@@ -69,38 +70,6 @@ void bind_EgoPosition(py::module &m) {
       .def_property_readonly("translation", &EgoPosition::get_translation);
 }
 
-void bind_Rotation(py::module &m) {
-  py::class_<Rotation>(m, "Rotation")
-      .def_property_readonly("x", &Rotation::get_x)
-      .def_property_readonly("y", &Rotation::get_y)
-      .def_property_readonly("z", &Rotation::get_z)
-      .def_property_readonly("w", &Rotation::get_w);
-}
-
-void bind_SampleData(py::module &m) {
-  py::class_<SampleData>(m, "SampleData")
-      .def_property_readonly("token", &SampleData::get_token)
-      .def_property_readonly("sample_token", &SampleData::get_sample_token)
-      .def_property_readonly("ego_pose_token", &SampleData::get_ego_pose_token)
-      // .def_property_readonly("calibrated_sensor_token",
-      //                        &SampleData::get_calibrated_sensor_token)
-      .def_property_readonly("timestamp", &SampleData::get_timestamp)
-      .def_property_readonly("fileformat", &SampleData::get_fileformat)
-      .def_property_readonly("is_key_frame", &SampleData::get_is_key_frame)
-      .def_property_readonly("height", &SampleData::get_height)
-      .def_property_readonly("width", &SampleData::get_width)
-      .def_property_readonly("filename", &SampleData::get_filename)
-      .def_property_readonly("prev", &SampleData::get_prev)
-      .def_property_readonly("next", &SampleData::get_next);
-}
-
-void bind_Translation(py::module &m) {
-  py::class_<Translation>(m, "Translation")
-      .def_property_readonly("x", &Translation::get_x)
-      .def_property_readonly("y", &Translation::get_y)
-      .def_property_readonly("z", &Translation::get_z);
-}
-
 void bind_Instance(py::module &m) {
   py::class_<Instance>(m, "Instance")
       .def_property_readonly("token", &Instance::get_token)
@@ -129,6 +98,47 @@ void bind_Map(py::module &m) {
       .def_property_readonly("log_tokens", &Map::get_log_tokens);
 }
 
+void bind_Rotation(py::module &m) {
+  py::class_<Rotation>(m, "Rotation")
+      .def_property_readonly("x", &Rotation::get_x)
+      .def_property_readonly("y", &Rotation::get_y)
+      .def_property_readonly("z", &Rotation::get_z)
+      .def_property_readonly("w", &Rotation::get_w);
+}
+
+void bind_SampleData(py::module &m) {
+  py::class_<SampleData>(m, "SampleData")
+      .def_property_readonly("token", &SampleData::get_token)
+      .def_property_readonly("sample_token", &SampleData::get_sample_token)
+      .def_property_readonly("ego_pose_token", &SampleData::get_ego_pose_token)
+      // .def_property_readonly("calibrated_sensor_token",
+      //                        &SampleData::get_calibrated_sensor_token)
+      .def_property_readonly("timestamp", &SampleData::get_timestamp)
+      .def_property_readonly("fileformat", &SampleData::get_fileformat)
+      .def_property_readonly("is_key_frame", &SampleData::get_is_key_frame)
+      .def_property_readonly("height", &SampleData::get_height)
+      .def_property_readonly("width", &SampleData::get_width)
+      .def_property_readonly("filename", &SampleData::get_filename)
+      .def_property_readonly("prev", &SampleData::get_prev)
+      .def_property_readonly("next", &SampleData::get_next);
+}
+
+void bind_Sample(py::module &m) {
+  py::class_<Sample>(m, "Sample")
+      .def_property_readonly("token", &Sample::get_token)
+      .def_property_readonly("scene_token", &Sample::get_scene_token)
+      .def_property_readonly("timestamp", &Sample::get_timestamp)
+      .def_property_readonly("next", &Sample::get_next)
+      .def_property_readonly("prev", &Sample::get_prev);
+}
+
+void bind_Translation(py::module &m) {
+  py::class_<Translation>(m, "Translation")
+      .def_property_readonly("x", &Translation::get_x)
+      .def_property_readonly("y", &Translation::get_y)
+      .def_property_readonly("z", &Translation::get_z);
+}
+
 void bind_classes(py::module &m) {
   bind_Nuscenes(m);
   bind_Annotation(m);
@@ -139,6 +149,7 @@ void bind_classes(py::module &m) {
   bind_Log(m);
   bind_Map(m);
   bind_Rotation(m);
+  bind_Sample(m);
   bind_SampleData(m);
   bind_Translation(m);
 }

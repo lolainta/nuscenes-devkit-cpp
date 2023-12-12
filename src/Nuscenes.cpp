@@ -19,6 +19,7 @@ Nuscenes::Nuscenes(std::string dataroot, std::string version, bool verbose)
   this->load_instances();
   this->load_logs();
   this->load_maps();
+  this->load_samples();
   this->load_sample_datas();
 }
 
@@ -115,6 +116,17 @@ void Nuscenes::load_maps() {
   }
 }
 
+void Nuscenes::load_samples() {
+  fs::path sample_path = this->path / "sample.json";
+  json sample_json = this->load_json(sample_path);
+  for (auto &sample : sample_json) {
+    this->samples.emplace_back(sample);
+  }
+  if (this->verbose) {
+    cout << "Loaded " << this->samples.size() << " samples." << endl;
+  }
+}
+
 void Nuscenes::load_sample_datas() {
   fs::path data_path = this->path / "sample_data.json";
   json data_json = this->load_json(data_path);
@@ -157,6 +169,10 @@ const std::vector<Instance> &Nuscenes::get_instances() const {
 const std::vector<Log> &Nuscenes::get_logs() const { return this->logs; }
 
 const std::vector<Map> &Nuscenes::get_maps() const { return this->maps; }
+
+const std::vector<Sample> &Nuscenes::get_samples() const {
+  return this->samples;
+}
 
 const std::vector<SampleData> &Nuscenes::get_sample_datas() const {
   return this->datas;
