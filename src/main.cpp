@@ -31,7 +31,8 @@ void bind_Nuscenes(py::module &m) {
       .def_property_readonly("maps", &Nuscenes::get_maps)
       .def_property_readonly("samples", &Nuscenes::get_samples)
       .def_property_readonly("sample_datas", &Nuscenes::get_sample_datas)
-      .def_property_readonly("scenes", &Nuscenes::get_scenes);
+      .def_property_readonly("scenes", &Nuscenes::get_scenes)
+      .def_property_readonly("sensors", &Nuscenes::get_sensors);
 }
 
 void bind_Annotation(py::module &m) {
@@ -145,6 +146,14 @@ void bind_Scene(py::module &m) {
       .def_property_readonly("description", &Scene::get_description);
 }
 
+void bind_Sensor(py::module &m) {
+  py::class_<Sensor>(m, "Sensor")
+      .def_property_readonly("token", &Sensor::get_token)
+      .def_property_readonly("channel", &Sensor::get_channel)
+      .def_property_readonly("modality", &Sensor::get_modality)
+      .def_property_readonly("channel", &Sensor::get_channel);
+}
+
 void bind_Translation(py::module &m) {
   py::class_<Translation>(m, "Translation")
       .def_property_readonly("x", &Translation::get_x)
@@ -165,6 +174,7 @@ void bind_classes(py::module &m) {
   bind_Sample(m);
   bind_SampleData(m);
   bind_Scene(m);
+  bind_Sensor(m);
   bind_Translation(m);
 }
 

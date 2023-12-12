@@ -14,6 +14,7 @@
 #include "Sample.hpp"
 #include "SampleData.hpp"
 #include "Scene.hpp"
+#include "Sensor.hpp"
 #include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
@@ -35,6 +36,7 @@ class Nuscenes {
   std::vector<Sample> samples;
   std::vector<SampleData> datas;
   std::vector<Scene> scenes;
+  std::vector<Sensor> sensors;
 
   const json load_json(const fs::path &) const;
   void load_annotations();
@@ -47,6 +49,7 @@ class Nuscenes {
   void load_samples();
   void load_sample_datas();
   void load_scenes();
+  void load_sensors();
 
  public:
   const fs::path &get_path() const;
@@ -63,6 +66,7 @@ class Nuscenes {
   const std::vector<Sample> &get_samples() const;
   const std::vector<SampleData> &get_sample_datas() const;
   const std::vector<Scene> &get_scenes() const;
+  const std::vector<Sensor> &get_sensors() const;
   Nuscenes() = delete;
   Nuscenes(std::string, std::string = "v1.0-mini", bool = false);
   ~Nuscenes() = default;

@@ -22,6 +22,7 @@ Nuscenes::Nuscenes(std::string dataroot, std::string version, bool verbose)
   this->load_samples();
   this->load_sample_datas();
   this->load_scenes();
+  this->load_sensors();
 }
 
 const json Nuscenes::load_json(const fs::path &path) const {
@@ -150,6 +151,17 @@ void Nuscenes::load_scenes() {
   }
 }
 
+void Nuscenes::load_sensors() {
+  fs::path sensor_path = this->path / "sensor.json";
+  json sensor_json = this->load_json(sensor_path);
+  for (auto &sensor : sensor_json) {
+    this->sensors.emplace_back(sensor);
+  }
+  if (this->verbose) {
+    cout << "Loaded " << this->sensors.size() << " sensors." << endl;
+  }
+}
+
 const fs::path &Nuscenes::get_path() const { return this->path; }
 
 const fs::path &Nuscenes::get_dataroot() const { return this->dataroot; }
@@ -191,3 +203,7 @@ const std::vector<SampleData> &Nuscenes::get_sample_datas() const {
 }
 
 const std::vector<Scene> &Nuscenes::get_scenes() const { return this->scenes; }
+
+const std::vector<Sensor> &Nuscenes::get_sensors() const {
+  return this->sensors;
+}
