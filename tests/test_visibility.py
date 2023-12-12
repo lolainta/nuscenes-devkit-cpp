@@ -3,7 +3,7 @@ import random
 
 
 def test_visibility():
-    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.NuScenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert isinstance(nusc.visibilities, list)
     assert len(nusc.visibilities) == 4
     visibilities = sorted(nusc.visibilities, key=lambda x: x.token)

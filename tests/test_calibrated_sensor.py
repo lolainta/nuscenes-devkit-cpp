@@ -3,7 +3,7 @@ import random
 
 
 def test_calibrated_sensor():
-    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.NuScenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert isinstance(nusc.calibrated_sensors, list)
     assert len(nusc.calibrated_sensors) > 0
     calibrated_sensor = random.choice(nusc.calibrated_sensors)

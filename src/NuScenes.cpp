@@ -1,4 +1,4 @@
-#include "Nuscenes.hpp"
+#include "NuScenes.hpp"
 
 #include <filesystem>
 #include <fstream>
@@ -6,12 +6,35 @@
 using std::cout, std::endl;
 namespace fs = std::filesystem;
 
-Nuscenes::Nuscenes(std::string dataroot, std::string version, bool verbose)
+NuScenes::NuScenes(std::string dataroot, std::string version, bool verbose)
     : dataroot(dataroot), version(version), verbose(verbose) {
+  if (this->verbose) cout << "====================" << endl;
   this->path = fs::path(dataroot) / fs::path(version);
   if (this->verbose) {
-    cout << "Loading Nuscenes dataset from " << path << endl;
+    cout << "Loading NuScenes dataset for version " << this->version << endl;
   }
+  auto start = std::chrono::high_resolution_clock::now();
+  this->load_data();
+  auto end = std::chrono::high_resolution_clock::now();
+  if (this->verbose) {
+    cout << "Loaded data in "
+         << std::chrono::duration_cast<std::chrono::milliseconds>(end - start)
+                .count()
+         << " ms" << endl;
+  }
+  if (this->verbose) cout << "====================" << endl;
+  start = std::chrono::high_resolution_clock::now();
+  this->reverse_index();
+  end = std::chrono::high_resolution_clock::now();
+  if (this->verbose) {
+    cout << "Built reverse index in "
+         << std::chrono::duration_cast<std::chrono::milliseconds>(end - start)
+                .count()
+         << " ms" << endl;
+  }
+}
+
+void NuScenes::load_data() {
   this->load_annotations();
   this->load_attributes();
   this->load_calibrated_sensors();
@@ -27,7 +50,7 @@ Nuscenes::Nuscenes(std::string dataroot, std::string version, bool verbose)
   this->load_visibilities();
 }
 
-const json Nuscenes::load_json(const fs::path &path) const {
+const json NuScenes::load_json(const fs::path &path) const {
   json ret;
   try {
     if (!fs::exists(path)) {
@@ -42,7 +65,7 @@ const json Nuscenes::load_json(const fs::path &path) const {
   return ret;
 }
 
-void Nuscenes::load_annotations() {
+void NuScenes::load_annotations() {
   fs::path ann_path = this->path / "sample_annotation.json";
   json ann_json = this->load_json(ann_path);
   for (auto &ann : ann_json) {
@@ -53,7 +76,7 @@ void Nuscenes::load_annotations() {
   }
 }
 
-void Nuscenes::load_attributes() {
+void NuScenes::load_attributes() {
   fs::path attr_path = this->path / "attribute.json";
   json attr_json = this->load_json(attr_path);
   for (auto &attr : attr_json) {
@@ -64,7 +87,7 @@ void Nuscenes::load_attributes() {
   }
 }
 
-void Nuscenes::load_calibrated_sensors() {
+void NuScenes::load_calibrated_sensors() {
   fs::path cs_path = this->path / "calibrated_sensor.json";
   json cs_json = this->load_json(cs_path);
   for (auto &cs : cs_json) {
@@ -76,7 +99,7 @@ void Nuscenes::load_calibrated_sensors() {
   }
 }
 
-void Nuscenes::load_categories() {
+void NuScenes::load_categories() {
   fs::path cat_path = this->path / "category.json";
   json cat_json = this->load_json(cat_path);
   for (auto &cat : cat_json) {
@@ -87,7 +110,7 @@ void Nuscenes::load_categories() {
   }
 }
 
-void Nuscenes::load_ego_positions() {
+void NuScenes::load_ego_positions() {
   fs::path ego_path = this->path / "ego_pose.json";
   json ego_json = this->load_json(ego_path);
   for (auto &ego : ego_json) {
@@ -99,7 +122,7 @@ void Nuscenes::load_ego_positions() {
   }
 }
 
-void Nuscenes::load_instances() {
+void NuScenes::load_instances() {
   fs::path inst_path = this->path / "instance.json";
   json inst_json = this->load_json(inst_path);
   for (auto &inst : inst_json) {
@@ -110,7 +133,7 @@ void Nuscenes::load_instances() {
   }
 }
 
-void Nuscenes::load_logs() {
+void NuScenes::load_logs() {
   fs::path log_path = this->path / "log.json";
   json log_json = this->load_json(log_path);
   for (auto &log : log_json) {
@@ -121,7 +144,7 @@ void Nuscenes::load_logs() {
   }
 }
 
-void Nuscenes::load_maps() {
+void NuScenes::load_maps() {
   fs::path map_path = this->path / "map.json";
   json map_json = this->load_json(map_path);
   for (auto &map : map_json) {
@@ -132,7 +155,7 @@ void Nuscenes::load_maps() {
   }
 }
 
-void Nuscenes::load_samples() {
+void NuScenes::load_samples() {
   fs::path sample_path = this->path / "sample.json";
   json sample_json = this->load_json(sample_path);
   for (auto &sample : sample_json) {
@@ -143,7 +166,7 @@ void Nuscenes::load_samples() {
   }
 }
 
-void Nuscenes::load_sample_datas() {
+void NuScenes::load_sample_datas() {
   fs::path data_path = this->path / "sample_data.json";
   json data_json = this->load_json(data_path);
   for (auto &data : data_json) {
@@ -154,7 +177,7 @@ void Nuscenes::load_sample_datas() {
   }
 }
 
-void Nuscenes::load_scenes() {
+void NuScenes::load_scenes() {
   fs::path scene_path = this->path / "scene.json";
   json scene_json = this->load_json(scene_path);
   for (auto &scene : scene_json) {
@@ -165,7 +188,7 @@ void Nuscenes::load_scenes() {
   }
 }
 
-void Nuscenes::load_sensors() {
+void NuScenes::load_sensors() {
   fs::path sensor_path = this->path / "sensor.json";
   json sensor_json = this->load_json(sensor_path);
   for (auto &sensor : sensor_json) {
@@ -176,7 +199,7 @@ void Nuscenes::load_sensors() {
   }
 }
 
-void Nuscenes::load_visibilities() {
+void NuScenes::load_visibilities() {
   fs::path vis_path = this->path / "visibility.json";
   json vis_json = this->load_json(vis_path);
   for (auto &vis : vis_json) {
@@ -187,56 +210,101 @@ void Nuscenes::load_visibilities() {
   }
 }
 
-const fs::path &Nuscenes::get_path() const { return this->path; }
+void NuScenes::reverse_index() { this->build_token2idx(); }
 
-const fs::path &Nuscenes::get_dataroot() const { return this->dataroot; }
+void NuScenes::build_token2idx() {
+  for (int i = 0; i < this->annotations.size(); i++) {
+    this->annotation_token2idx[this->annotations[i].get_token()] = i;
+  }
+  for (int i = 0; i < this->attributes.size(); i++) {
+    this->attribute_token2idx[this->attributes[i].get_token()] = i;
+  }
+  for (int i = 0; i < this->calibrated_sensors.size(); i++) {
+    this->calibrated_sensor_token2idx[this->calibrated_sensors[i].get_token()] =
+        i;
+  }
+  for (int i = 0; i < this->categories.size(); i++) {
+    this->category_token2idx[this->categories[i].get_token()] = i;
+  }
+  for (int i = 0; i < this->ego_positions.size(); i++) {
+    this->ego_position_token2idx[this->ego_positions[i].get_token()] = i;
+  }
+  for (int i = 0; i < this->instances.size(); i++) {
+    this->instance_token2idx[this->instances[i].get_token()] = i;
+  }
+  for (int i = 0; i < this->logs.size(); i++) {
+    this->log_token2idx[this->logs[i].get_token()] = i;
+  }
+  for (int i = 0; i < this->maps.size(); i++) {
+    this->map_token2idx[this->maps[i].get_token()] = i;
+  }
+  for (int i = 0; i < this->samples.size(); i++) {
+    this->sample_token2idx[this->samples[i].get_token()] = i;
+  }
+  for (int i = 0; i < this->datas.size(); i++) {
+    this->sample_data_token2idx[this->datas[i].get_token()] = i;
+  }
+  for (int i = 0; i < this->scenes.size(); i++) {
+    this->scene_token2idx[this->scenes[i].get_token()] = i;
+  }
+  for (int i = 0; i < this->sensors.size(); i++) {
+    this->sensor_token2idx[this->sensors[i].get_token()] = i;
+  }
+  for (int i = 0; i < this->visibilities.size(); i++) {
+    this->visibility_token2idx[this->visibilities[i].get_token()] = i;
+  }
+}
 
-const std::string &Nuscenes::get_version() const { return this->version; }
+const fs::path &NuScenes::get_path() const { return this->path; }
 
-const bool &Nuscenes::get_verbose() const { return this->verbose; }
+const fs::path &NuScenes::get_dataroot() const { return this->dataroot; }
 
-const std::vector<Annotation> &Nuscenes::get_annotations() const {
+const std::string &NuScenes::get_version() const { return this->version; }
+
+const bool &NuScenes::get_verbose() const { return this->verbose; }
+
+const std::vector<Annotation> &NuScenes::get_annotations() const {
   return this->annotations;
 }
 
-const std::vector<Attribute> &Nuscenes::get_attributes() const {
+const std::vector<Attribute> &NuScenes::get_attributes() const {
   return this->attributes;
 }
 
-const std::vector<CalibratedSensor> &Nuscenes::get_calibrated_sensors() const {
+const std::vector<CalibratedSensor> &NuScenes::get_calibrated_sensors() const {
   return this->calibrated_sensors;
 }
 
-const std::vector<Category> &Nuscenes::get_categories() const {
+const std::vector<Category> &NuScenes::get_categories() const {
   return this->categories;
 }
 
-const std::vector<EgoPosition> &Nuscenes::get_ego_positions() const {
+const std::vector<EgoPosition> &NuScenes::get_ego_positions() const {
   return this->ego_positions;
 }
 
-const std::vector<Instance> &Nuscenes::get_instances() const {
+const std::vector<Instance> &NuScenes::get_instances() const {
   return this->instances;
 }
 
-const std::vector<Log> &Nuscenes::get_logs() const { return this->logs; }
+const std::vector<Log> &NuScenes::get_logs() const { return this->logs; }
 
-const std::vector<Map> &Nuscenes::get_maps() const { return this->maps; }
+const std::vector<Map> &NuScenes::get_maps() const { return this->maps; }
 
-const std::vector<Sample> &Nuscenes::get_samples() const {
+const std::vector<Sample> &NuScenes::get_samples() const {
   return this->samples;
 }
 
-const std::vector<SampleData> &Nuscenes::get_sample_datas() const {
+const std::vector<SampleData> &NuScenes::get_sample_datas() const {
   return this->datas;
 }
 
-const std::vector<Scene> &Nuscenes::get_scenes() const { return this->scenes; }
+const std::vector<Scene> &NuScenes::get_scenes() const { return this->scenes; }
 
-const std::vector<Sensor> &Nuscenes::get_sensors() const {
+const std::vector<Sensor> &NuScenes::get_sensors() const {
   return this->sensors;
 }
 
-const std::vector<Visibility> &Nuscenes::get_visibilities() const {
+const std::vector<Visibility> &NuScenes::get_visibilities() const {
   return this->visibilities;
 }

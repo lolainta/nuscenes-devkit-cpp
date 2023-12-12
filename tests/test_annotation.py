@@ -3,7 +3,7 @@ import random
 
 
 def test_annotation():
-    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.NuScenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert isinstance(nusc.annotations, list)
     assert len(nusc.annotations) != 0
     ann = random.choice(nusc.annotations)

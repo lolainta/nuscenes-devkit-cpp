@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "Annotation.hpp"
@@ -22,7 +23,7 @@
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
-class Nuscenes {
+class NuScenes {
  private:
   fs::path path;
   fs::path dataroot;
@@ -42,6 +43,21 @@ class Nuscenes {
   std::vector<Sensor> sensors;
   std::vector<Visibility> visibilities;
 
+  std::unordered_map<std::string, int> annotation_token2idx;
+  std::unordered_map<std::string, int> attribute_token2idx;
+  std::unordered_map<std::string, int> calibrated_sensor_token2idx;
+  std::unordered_map<std::string, int> category_token2idx;
+  std::unordered_map<std::string, int> ego_position_token2idx;
+  std::unordered_map<std::string, int> instance_token2idx;
+  std::unordered_map<std::string, int> log_token2idx;
+  std::unordered_map<std::string, int> map_token2idx;
+  std::unordered_map<std::string, int> sample_token2idx;
+  std::unordered_map<std::string, int> sample_data_token2idx;
+  std::unordered_map<std::string, int> scene_token2idx;
+  std::unordered_map<std::string, int> sensor_token2idx;
+  std::unordered_map<std::string, int> visibility_token2idx;
+
+  void load_data();
   const json load_json(const fs::path &) const;
   void load_annotations();
   void load_attributes();
@@ -56,6 +72,9 @@ class Nuscenes {
   void load_scenes();
   void load_sensors();
   void load_visibilities();
+
+  void build_token2idx();
+  void reverse_index();
 
  public:
   const fs::path &get_path() const;
@@ -75,7 +94,7 @@ class Nuscenes {
   const std::vector<Scene> &get_scenes() const;
   const std::vector<Sensor> &get_sensors() const;
   const std::vector<Visibility> &get_visibilities() const;
-  Nuscenes() = delete;
-  Nuscenes(std::string, std::string = "v1.0-mini", bool = false);
-  ~Nuscenes() = default;
+  NuScenes() = delete;
+  NuScenes(std::string, std::string = "v1.0-mini", bool = false);
+  ~NuScenes() = default;
 };

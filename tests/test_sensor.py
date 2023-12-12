@@ -3,7 +3,7 @@ import random
 
 
 def test_sensor():
-    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.NuScenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert isinstance(nusc.sensors, list)
     assert len(nusc.sensors) == 12
     for sensor in nusc.sensors:
