@@ -30,7 +30,8 @@ void bind_Nuscenes(py::module &m) {
       .def_property_readonly("logs", &Nuscenes::get_logs)
       .def_property_readonly("maps", &Nuscenes::get_maps)
       .def_property_readonly("samples", &Nuscenes::get_samples)
-      .def_property_readonly("sample_datas", &Nuscenes::get_sample_datas);
+      .def_property_readonly("sample_datas", &Nuscenes::get_sample_datas)
+      .def_property_readonly("scenes", &Nuscenes::get_scenes);
 }
 
 void bind_Annotation(py::module &m) {
@@ -132,6 +133,18 @@ void bind_Sample(py::module &m) {
       .def_property_readonly("prev", &Sample::get_prev);
 }
 
+void bind_Scene(py::module &m) {
+  py::class_<Scene>(m, "Scene")
+      .def_property_readonly("token", &Scene::get_token)
+      .def_property_readonly("log_token", &Scene::get_log_token)
+      .def_property_readonly("nbr_samples", &Scene::get_nbr_samples)
+      .def_property_readonly("first_sample_token",
+                             &Scene::get_first_sample_token)
+      .def_property_readonly("last_sample_token", &Scene::get_last_sample_token)
+      .def_property_readonly("name", &Scene::get_name)
+      .def_property_readonly("description", &Scene::get_description);
+}
+
 void bind_Translation(py::module &m) {
   py::class_<Translation>(m, "Translation")
       .def_property_readonly("x", &Translation::get_x)
@@ -151,6 +164,7 @@ void bind_classes(py::module &m) {
   bind_Rotation(m);
   bind_Sample(m);
   bind_SampleData(m);
+  bind_Scene(m);
   bind_Translation(m);
 }
 

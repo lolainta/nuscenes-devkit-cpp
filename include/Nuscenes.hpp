@@ -13,6 +13,7 @@
 #include "Map.hpp"
 #include "Sample.hpp"
 #include "SampleData.hpp"
+#include "Scene.hpp"
 #include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
@@ -33,6 +34,7 @@ class Nuscenes {
   std::vector<Map> maps;
   std::vector<Sample> samples;
   std::vector<SampleData> datas;
+  std::vector<Scene> scenes;
 
   const json load_json(const fs::path &) const;
   void load_annotations();
@@ -44,6 +46,7 @@ class Nuscenes {
   void load_maps();
   void load_samples();
   void load_sample_datas();
+  void load_scenes();
 
  public:
   const fs::path &get_path() const;
@@ -59,6 +62,7 @@ class Nuscenes {
   const std::vector<Map> &get_maps() const;
   const std::vector<Sample> &get_samples() const;
   const std::vector<SampleData> &get_sample_datas() const;
+  const std::vector<Scene> &get_scenes() const;
   Nuscenes() = delete;
   Nuscenes(std::string, std::string = "v1.0-mini", bool = false);
   ~Nuscenes() = default;
