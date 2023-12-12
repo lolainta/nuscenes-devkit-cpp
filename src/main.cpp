@@ -32,7 +32,8 @@ void bind_Nuscenes(py::module &m) {
       .def_property_readonly("samples", &Nuscenes::get_samples)
       .def_property_readonly("sample_datas", &Nuscenes::get_sample_datas)
       .def_property_readonly("scenes", &Nuscenes::get_scenes)
-      .def_property_readonly("sensors", &Nuscenes::get_sensors);
+      .def_property_readonly("sensors", &Nuscenes::get_sensors)
+      .def_property_readonly("visibilities", &Nuscenes::get_visibilities);
 }
 
 void bind_Annotation(py::module &m) {
@@ -161,6 +162,13 @@ void bind_Translation(py::module &m) {
       .def_property_readonly("z", &Translation::get_z);
 }
 
+void bind_Visibility(py::module &m) {
+  py::class_<Visibility>(m, "Visibility")
+      .def_property_readonly("token", &Visibility::get_token)
+      .def_property_readonly("level", &Visibility::get_level)
+      .def_property_readonly("description", &Visibility::get_description);
+}
+
 void bind_classes(py::module &m) {
   bind_Nuscenes(m);
   bind_Annotation(m);
@@ -176,6 +184,7 @@ void bind_classes(py::module &m) {
   bind_Scene(m);
   bind_Sensor(m);
   bind_Translation(m);
+  bind_Visibility(m);
 }
 
 void bind_Location(py::module &m) {

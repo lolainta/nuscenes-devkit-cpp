@@ -23,6 +23,7 @@ Nuscenes::Nuscenes(std::string dataroot, std::string version, bool verbose)
   this->load_sample_datas();
   this->load_scenes();
   this->load_sensors();
+  this->load_visibilities();
 }
 
 const json Nuscenes::load_json(const fs::path &path) const {
@@ -162,6 +163,17 @@ void Nuscenes::load_sensors() {
   }
 }
 
+void Nuscenes::load_visibilities() {
+  fs::path vis_path = this->path / "visibility.json";
+  json vis_json = this->load_json(vis_path);
+  for (auto &vis : vis_json) {
+    this->visibilities.emplace_back(vis);
+  }
+  if (this->verbose) {
+    cout << "Loaded " << this->visibilities.size() << " visibilities." << endl;
+  }
+}
+
 const fs::path &Nuscenes::get_path() const { return this->path; }
 
 const fs::path &Nuscenes::get_dataroot() const { return this->dataroot; }
@@ -206,4 +218,8 @@ const std::vector<Scene> &Nuscenes::get_scenes() const { return this->scenes; }
 
 const std::vector<Sensor> &Nuscenes::get_sensors() const {
   return this->sensors;
+}
+
+const std::vector<Visibility> &Nuscenes::get_visibilities() const {
+  return this->visibilities;
 }
