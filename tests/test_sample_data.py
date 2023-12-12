@@ -16,8 +16,8 @@ def test_sample_data():
     assert sample_data.sample_token is not None
     assert isinstance(sample_data.ego_pose_token, str)
     assert sample_data.ego_pose_token is not None
-    # assert isinstance(sample_data.calibrated_sensor_token, str)
-    # assert sample_data.calibrated_sensor_token is not None
+    assert isinstance(sample_data.calibrated_sensor_token, str)
+    assert sample_data.calibrated_sensor_token is not None
     assert isinstance(sample_data.timestamp, int)
     assert isinstance(sample_data.fileformat, str)
     assert isinstance(sample_data.is_key_frame, bool)

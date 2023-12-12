@@ -14,6 +14,7 @@ Nuscenes::Nuscenes(std::string dataroot, std::string version, bool verbose)
   }
   this->load_annotations();
   this->load_attributes();
+  this->load_calibrated_sensors();
   this->load_categories();
   this->load_ego_positions();
   this->load_instances();
@@ -60,6 +61,18 @@ void Nuscenes::load_attributes() {
   }
   if (this->verbose) {
     cout << "Loaded " << this->attributes.size() << " attributes." << endl;
+  }
+}
+
+void Nuscenes::load_calibrated_sensors() {
+  fs::path cs_path = this->path / "calibrated_sensor.json";
+  json cs_json = this->load_json(cs_path);
+  for (auto &cs : cs_json) {
+    this->calibrated_sensors.emplace_back(cs);
+  }
+  if (this->verbose) {
+    cout << "Loaded " << this->calibrated_sensors.size()
+         << " calibrated sensors." << endl;
   }
 }
 
@@ -188,6 +201,10 @@ const std::vector<Annotation> &Nuscenes::get_annotations() const {
 
 const std::vector<Attribute> &Nuscenes::get_attributes() const {
   return this->attributes;
+}
+
+const std::vector<CalibratedSensor> &Nuscenes::get_calibrated_sensors() const {
+  return this->calibrated_sensors;
 }
 
 const std::vector<Category> &Nuscenes::get_categories() const {

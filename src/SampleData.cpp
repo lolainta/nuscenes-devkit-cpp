@@ -1,13 +1,15 @@
 #include "SampleData.hpp"
 
 SampleData::SampleData(std::string token, std::string sample_token,
-                       std::string ego_pose_token, uint64_t timestamp,
+                       std::string ego_pose_token,
+                       std::string calibrated_sensor_token, uint64_t timestamp,
                        std::string fileformat, bool is_key_frame, size_t width,
                        size_t height, fs::path filename, std::string prev,
                        std::string next)
     : token(token),
       sample_token(sample_token),
       ego_pose_token(ego_pose_token),
+      calibrated_sensor_token(calibrated_sensor_token),
       timestamp(timestamp),
       fileformat(fileformat),
       is_key_frame(is_key_frame),
@@ -21,6 +23,8 @@ SampleData::SampleData(const json &j)
     : token(j.at("token").get<std::string>()),
       sample_token(j.at("sample_token").get<std::string>()),
       ego_pose_token(j.at("ego_pose_token").get<std::string>()),
+      calibrated_sensor_token(
+          j.at("calibrated_sensor_token").get<std::string>()),
       timestamp(j.at("timestamp").get<uint64_t>()),
       fileformat(j.at("fileformat").get<std::string>()),
       is_key_frame(j.at("is_key_frame").get<bool>()),
@@ -38,6 +42,10 @@ const std::string &SampleData::get_sample_token() const {
 
 const std::string &SampleData::get_ego_pose_token() const {
   return this->ego_pose_token;
+}
+
+const std::string &SampleData::get_calibrated_sensor_token() const {
+  return this->calibrated_sensor_token;
 }
 
 const uint64_t &SampleData::get_timestamp() const { return this->timestamp; }

@@ -6,6 +6,7 @@
 
 #include "Annotation.hpp"
 #include "Attribute.hpp"
+#include "CalibratedSensor.hpp"
 #include "Category.hpp"
 #include "EgoPosition.hpp"
 #include "Instance.hpp"
@@ -29,6 +30,7 @@ class Nuscenes {
   bool verbose;
   std::vector<Annotation> annotations;
   std::vector<Attribute> attributes;
+  std::vector<CalibratedSensor> calibrated_sensors;
   std::vector<Category> categories;
   std::vector<EgoPosition> ego_positions;
   std::vector<Instance> instances;
@@ -43,6 +45,7 @@ class Nuscenes {
   const json load_json(const fs::path &) const;
   void load_annotations();
   void load_attributes();
+  void load_calibrated_sensors();
   void load_categories();
   void load_ego_positions();
   void load_instances();
@@ -61,6 +64,7 @@ class Nuscenes {
   const bool &get_verbose() const;
   const std::vector<Annotation> &get_annotations() const;
   const std::vector<Attribute> &get_attributes() const;
+  const std::vector<CalibratedSensor> &get_calibrated_sensors() const;
   const std::vector<Category> &get_categories() const;
   const std::vector<EgoPosition> &get_ego_positions() const;
   const std::vector<Instance> &get_instances() const;

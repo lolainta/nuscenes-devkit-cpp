@@ -13,6 +13,7 @@ class SampleData {
   std::string token;
   std::string sample_token;
   std::string ego_pose_token;
+  std::string calibrated_sensor_token;
   uint64_t timestamp;
   std::string fileformat;
   bool is_key_frame;
@@ -26,6 +27,7 @@ class SampleData {
   const std::string &get_token() const;
   const std::string &get_sample_token() const;
   const std::string &get_ego_pose_token() const;
+  const std::string &get_calibrated_sensor_token() const;
   const uint64_t &get_timestamp() const;
   const std::string &get_fileformat() const;
   const bool &get_is_key_frame() const;
@@ -37,7 +39,8 @@ class SampleData {
   const std::string &get_next() const;
   SampleData() = delete;
   SampleData(const json &);
-  SampleData(std::string, std::string, std::string, uint64_t, std::string, bool,
-             size_t, size_t, fs::path, std::string, std::string);
+  SampleData(std::string, std::string, std::string, std::string, uint64_t,
+             std::string, bool, size_t, size_t, fs::path, std::string,
+             std::string);
   ~SampleData() = default;
 };

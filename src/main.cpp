@@ -24,6 +24,8 @@ void bind_Nuscenes(py::module &m) {
       .def_property_readonly("verbose", &Nuscenes::get_verbose)
       .def_property_readonly("annotations", &Nuscenes::get_annotations)
       .def_property_readonly("attributes", &Nuscenes::get_attributes)
+      .def_property_readonly("calibrated_sensors",
+                             &Nuscenes::get_calibrated_sensors)
       .def_property_readonly("categories", &Nuscenes::get_categories)
       .def_property_readonly("ego_positions", &Nuscenes::get_ego_positions)
       .def_property_readonly("instances", &Nuscenes::get_instances)
@@ -56,6 +58,15 @@ void bind_Attribute(py::module &m) {
   py::class_<Attribute>(m, "Attribute")
       .def_property_readonly("token", &Attribute::get_token)
       .def_property_readonly("description", &Attribute::get_description);
+}
+
+void bind_CalibratedSensor(py::module &m) {
+  py::class_<CalibratedSensor>(m, "CalibratedSensor")
+      .def_property_readonly("token", &CalibratedSensor::get_token)
+      .def_property_readonly("sensor_token",
+                             &CalibratedSensor::get_sensor_token)
+      .def_property_readonly("translation", &CalibratedSensor::get_translation)
+      .def_property_readonly("rotation", &CalibratedSensor::get_rotation);
 }
 
 void bind_Category(py::module &m) {
@@ -114,8 +125,8 @@ void bind_SampleData(py::module &m) {
       .def_property_readonly("token", &SampleData::get_token)
       .def_property_readonly("sample_token", &SampleData::get_sample_token)
       .def_property_readonly("ego_pose_token", &SampleData::get_ego_pose_token)
-      // .def_property_readonly("calibrated_sensor_token",
-      //                        &SampleData::get_calibrated_sensor_token)
+      .def_property_readonly("calibrated_sensor_token",
+                             &SampleData::get_calibrated_sensor_token)
       .def_property_readonly("timestamp", &SampleData::get_timestamp)
       .def_property_readonly("fileformat", &SampleData::get_fileformat)
       .def_property_readonly("is_key_frame", &SampleData::get_is_key_frame)
@@ -173,6 +184,7 @@ void bind_classes(py::module &m) {
   bind_Nuscenes(m);
   bind_Annotation(m);
   bind_Attribute(m);
+  bind_CalibratedSensor(m);
   bind_Category(m);
   bind_EgoPosition(m);
   bind_Instance(m);
