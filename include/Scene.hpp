@@ -4,9 +4,14 @@
 
 #include "nlohmann/json.hpp"
 
+class Log;
+class Sample;
+
 using json = nlohmann::json;
 
 class Scene {
+  friend class NuScenes;
+
  private:
   std::string token;
   std::string log_token;
@@ -16,6 +21,10 @@ class Scene {
   std::string name;
   std::string description;
 
+  Log *log;
+  Sample *first_sample;
+  Sample *last_sample;
+
  public:
   const std::string &get_token() const;
   const std::string &get_log_token() const;
@@ -24,6 +33,9 @@ class Scene {
   const std::string &get_last_sample_token() const;
   const std::string &get_name() const;
   const std::string &get_description() const;
+
+  Scene &operator=(const Scene &) = default;
+
   Scene() = delete;
   Scene(const json &);
   Scene(std::string, std::string, size_t, std::string, std::string, std::string,

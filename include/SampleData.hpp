@@ -5,10 +5,16 @@
 
 #include "nlohmann/json.hpp"
 
+class Sample;
+class EgoPosition;
+class CalibratedSensor;
+
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
 class SampleData {
+  friend class NuScenes;
+
  private:
   std::string token;
   std::string sample_token;
@@ -20,8 +26,14 @@ class SampleData {
   size_t width;
   size_t height;
   fs::path filename;
-  std::string prev;
-  std::string next;
+  std::string prev_token;
+  std::string next_token;
+
+  Sample *sample;
+  EgoPosition *ego_pose;
+  CalibratedSensor *calibrated_sensor;
+  SampleData *prev;
+  SampleData *next;
 
  public:
   const std::string &get_token() const;
@@ -32,11 +44,13 @@ class SampleData {
   const std::string &get_fileformat() const;
   const bool &get_is_key_frame() const;
   const size_t &get_width() const;
-
   const size_t &get_height() const;
   const fs::path &get_filename() const;
-  const std::string &get_prev() const;
-  const std::string &get_next() const;
+  const std::string &get_prev_token() const;
+  const std::string &get_next_token() const;
+
+  SampleData &operator=(const SampleData &) = default;
+
   SampleData() = delete;
   SampleData(const json &);
   SampleData(std::string, std::string, std::string, std::string, uint64_t,

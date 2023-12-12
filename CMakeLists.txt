@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 3.28)
 
 project(nuscenes-devkit-cpp)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast -Wall")
+
 add_subdirectory(extern/pybind11)
 add_subdirectory(extern/nlohmann_json)
 include_directories(include)

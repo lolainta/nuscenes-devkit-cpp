@@ -5,6 +5,8 @@
 using json = nlohmann::json;
 
 class Rotation {
+  friend class NuScenes;
+
  private:
   long double x;
   long double y;
@@ -16,6 +18,8 @@ class Rotation {
   const long double &get_y() const;
   const long double &get_z() const;
   const long double &get_w() const;
+
+  Rotation &operator=(const Rotation &) = default;
 
   Rotation() = delete;
   Rotation(const json &);

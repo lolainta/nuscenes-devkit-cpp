@@ -5,7 +5,7 @@ import random
 
 
 def test_sample():
-    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.NuScenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert isinstance(nusc.samples, list)
     assert len(nusc.samples) > 0
     sample = random.choice(nusc.samples)

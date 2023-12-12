@@ -109,5 +109,5 @@ The development of the C++ SDK for the nuScenes dataset will follow a well-struc
 ## Reference
 
 - [Proposal Template](https://yyc.solvcon.net/en/latest/nsd/project/project_template.html)
-- [Nuscenes Official Website](https://www.nuscenes.org)
-- [Nuscenes dev-kit in python](https://github.com/nutonomy/nuscenes-devkit)
+- [NuScenes Official Website](https://www.nuscenes.org)
+- [NuScenes dev-kit in python](https://github.com/nutonomy/nuscenes-devkit)

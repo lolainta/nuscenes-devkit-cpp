@@ -3,7 +3,7 @@ import random
 
 
 def test_category():
-    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.NuScenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert isinstance(nusc.categories, list)
     assert len(nusc.categories) != 0
     assert isinstance(nusc.categories[0], nuscenes.Category)

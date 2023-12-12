@@ -6,36 +6,36 @@
 #include <string>
 
 #include "Attribute.hpp"
-#include "Nuscenes.hpp"
+#include "NuScenes.hpp"
 #define STRINGIFY(x) #x
 #define MACRO_STRINGIFY(x) STRINGIFY(x)
 
 namespace fs = std::filesystem;
 namespace py = pybind11;
 
-void bind_Nuscenes(py::module &m) {
-  py::class_<Nuscenes>(m, "Nuscenes")
+void bind_NuScenes(py::module &m) {
+  py::class_<NuScenes>(m, "NuScenes")
       .def(py::init<std::string, std::string, bool>(), py::arg("dataroot"),
            py::arg("version") = std::string("v1.0-mini"),
            py::arg("verbose") = false)
-      .def_property_readonly("path", &Nuscenes::get_path)
-      .def_property_readonly("dataroot", &Nuscenes::get_dataroot)
-      .def_property_readonly("version", &Nuscenes::get_version)
-      .def_property_readonly("verbose", &Nuscenes::get_verbose)
-      .def_property_readonly("annotations", &Nuscenes::get_annotations)
-      .def_property_readonly("attributes", &Nuscenes::get_attributes)
+      .def_property_readonly("path", &NuScenes::get_path)
+      .def_property_readonly("dataroot", &NuScenes::get_dataroot)
+      .def_property_readonly("version", &NuScenes::get_version)
+      .def_property_readonly("verbose", &NuScenes::get_verbose)
+      .def_property_readonly("annotations", &NuScenes::get_annotations)
+      .def_property_readonly("attributes", &NuScenes::get_attributes)
       .def_property_readonly("calibrated_sensors",
-                             &Nuscenes::get_calibrated_sensors)
-      .def_property_readonly("categories", &Nuscenes::get_categories)
-      .def_property_readonly("ego_positions", &Nuscenes::get_ego_positions)
-      .def_property_readonly("instances", &Nuscenes::get_instances)
-      .def_property_readonly("logs", &Nuscenes::get_logs)
-      .def_property_readonly("maps", &Nuscenes::get_maps)
-      .def_property_readonly("samples", &Nuscenes::get_samples)
-      .def_property_readonly("sample_datas", &Nuscenes::get_sample_datas)
-      .def_property_readonly("scenes", &Nuscenes::get_scenes)
-      .def_property_readonly("sensors", &Nuscenes::get_sensors)
-      .def_property_readonly("visibilities", &Nuscenes::get_visibilities);
+                             &NuScenes::get_calibrated_sensors)
+      .def_property_readonly("categories", &NuScenes::get_categories)
+      .def_property_readonly("ego_positions", &NuScenes::get_ego_positions)
+      .def_property_readonly("instances", &NuScenes::get_instances)
+      .def_property_readonly("logs", &NuScenes::get_logs)
+      .def_property_readonly("maps", &NuScenes::get_maps)
+      .def_property_readonly("samples", &NuScenes::get_samples)
+      .def_property_readonly("sample_datas", &NuScenes::get_sample_datas)
+      .def_property_readonly("scenes", &NuScenes::get_scenes)
+      .def_property_readonly("sensors", &NuScenes::get_sensors)
+      .def_property_readonly("visibilities", &NuScenes::get_visibilities);
 }
 
 void bind_Annotation(py::module &m) {
@@ -50,8 +50,8 @@ void bind_Annotation(py::module &m) {
       .def_property_readonly("translation", &Annotation::get_translation)
       .def_property_readonly("rotation", &Annotation::get_rotation)
       .def_property_readonly("size", &Annotation::get_size)
-      .def_property_readonly("prev", &Annotation::get_prev)
-      .def_property_readonly("next", &Annotation::get_next);
+      .def_property_readonly("prev", &Annotation::get_prev_token)
+      .def_property_readonly("next", &Annotation::get_next_token);
 }
 
 void bind_Attribute(py::module &m) {
@@ -133,8 +133,8 @@ void bind_SampleData(py::module &m) {
       .def_property_readonly("height", &SampleData::get_height)
       .def_property_readonly("width", &SampleData::get_width)
       .def_property_readonly("filename", &SampleData::get_filename)
-      .def_property_readonly("prev", &SampleData::get_prev)
-      .def_property_readonly("next", &SampleData::get_next);
+      .def_property_readonly("prev", &SampleData::get_prev_token)
+      .def_property_readonly("next", &SampleData::get_next_token);
 }
 
 void bind_Sample(py::module &m) {
@@ -142,8 +142,8 @@ void bind_Sample(py::module &m) {
       .def_property_readonly("token", &Sample::get_token)
       .def_property_readonly("scene_token", &Sample::get_scene_token)
       .def_property_readonly("timestamp", &Sample::get_timestamp)
-      .def_property_readonly("next", &Sample::get_next)
-      .def_property_readonly("prev", &Sample::get_prev);
+      .def_property_readonly("next", &Sample::get_next_token)
+      .def_property_readonly("prev", &Sample::get_prev_token);
 }
 
 void bind_Scene(py::module &m) {
@@ -181,7 +181,7 @@ void bind_Visibility(py::module &m) {
 }
 
 void bind_classes(py::module &m) {
-  bind_Nuscenes(m);
+  bind_NuScenes(m);
   bind_Annotation(m);
   bind_Attribute(m);
   bind_CalibratedSensor(m);

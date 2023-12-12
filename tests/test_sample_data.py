@@ -5,7 +5,7 @@ import random
 
 
 def test_sample_data():
-    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.NuScenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert isinstance(nusc.sample_datas, list)
     assert len(nusc.sample_datas) > 0
     sample_data = random.choice(nusc.sample_datas)
@@ -32,7 +32,7 @@ def test_sample_data():
 
 
 def test_sample_data_format():
-    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.NuScenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert len(nusc.sample_datas) > 0
     for data in nusc.sample_datas:
         if data.fileformat == "pcd":
@@ -46,7 +46,7 @@ def test_sample_data_format():
 
 
 def test_sample_filename():
-    nusc = nuscenes.Nuscenes(dataroot="./data", version="v1.0-mini", verbose=False)
+    nusc = nuscenes.NuScenes(dataroot="./data", version="v1.0-mini", verbose=False)
     assert len(nusc.sample_datas) > 0
     for data in nusc.sample_datas:
         assert isinstance(data.filename, Path)

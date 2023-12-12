@@ -4,8 +4,8 @@ SampleData::SampleData(std::string token, std::string sample_token,
                        std::string ego_pose_token,
                        std::string calibrated_sensor_token, uint64_t timestamp,
                        std::string fileformat, bool is_key_frame, size_t width,
-                       size_t height, fs::path filename, std::string prev,
-                       std::string next)
+                       size_t height, fs::path filename, std::string prev_token,
+                       std::string next_token)
     : token(token),
       sample_token(sample_token),
       ego_pose_token(ego_pose_token),
@@ -16,8 +16,8 @@ SampleData::SampleData(std::string token, std::string sample_token,
       width(width),
       height(height),
       filename(filename),
-      prev(prev),
-      next(next) {}
+      prev_token(prev_token),
+      next_token(next_token) {}
 
 SampleData::SampleData(const json &j)
     : token(j.at("token").get<std::string>()),
@@ -31,8 +31,8 @@ SampleData::SampleData(const json &j)
       width(j.at("width").get<size_t>()),
       height(j.at("height").get<size_t>()),
       filename(j.at("filename").get<std::string>()),
-      prev(j.at("prev").get<std::string>()),
-      next(j.at("next").get<std::string>()) {}
+      prev_token(j.at("prev").get<std::string>()),
+      next_token(j.at("next").get<std::string>()) {}
 
 const std::string &SampleData::get_token() const { return this->token; }
 
@@ -62,6 +62,10 @@ const size_t &SampleData::get_height() const { return this->height; }
 
 const fs::path &SampleData::get_filename() const { return this->filename; }
 
-const std::string &SampleData::get_prev() const { return this->prev; }
+const std::string &SampleData::get_prev_token() const {
+  return this->prev_token;
+}
 
-const std::string &SampleData::get_next() const { return this->next; }
+const std::string &SampleData::get_next_token() const {
+  return this->next_token;
+}
