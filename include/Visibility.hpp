@@ -16,6 +16,9 @@ class Visibility {
   const std::string &get_token() const;
   const std::string &get_level() const;
   const std::string &get_description() const;
+
+  Visibility &operator=(const Visibility &) = default;
+
   Visibility() = delete;
   Visibility(const json &);
   Visibility(std::string, std::string, std::string);

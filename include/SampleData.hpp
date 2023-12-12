@@ -32,11 +32,13 @@ class SampleData {
   const std::string &get_fileformat() const;
   const bool &get_is_key_frame() const;
   const size_t &get_width() const;
-
   const size_t &get_height() const;
   const fs::path &get_filename() const;
   const std::string &get_prev() const;
   const std::string &get_next() const;
+
+  SampleData &operator=(const SampleData &) = default;
+
   SampleData() = delete;
   SampleData(const json &);
   SampleData(std::string, std::string, std::string, std::string, uint64_t,

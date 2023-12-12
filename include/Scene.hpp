@@ -24,6 +24,9 @@ class Scene {
   const std::string &get_last_sample_token() const;
   const std::string &get_name() const;
   const std::string &get_description() const;
+
+  Scene &operator=(const Scene &) = default;
+
   Scene() = delete;
   Scene(const json &);
   Scene(std::string, std::string, size_t, std::string, std::string, std::string,

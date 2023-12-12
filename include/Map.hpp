@@ -22,6 +22,9 @@ class Map {
   const fs::path &get_filename() const;
   const std::string &get_category() const;
   const std::vector<std::string> &get_log_tokens() const;
+
+  Map &operator=(const Map &) = default;
+
   Map() = delete;
   Map(std::string, fs::path, std::string, std::vector<std::string>);
   Map(const json &);

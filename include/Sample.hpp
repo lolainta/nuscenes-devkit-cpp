@@ -20,6 +20,9 @@ class Sample {
   const uint64_t &get_timestamp() const;
   const std::string &get_prev() const;
   const std::string &get_next() const;
+
+  Sample &operator=(const Sample &) = default;
+
   Sample() = delete;
   Sample(const json &);
   Sample(std::string, std::string, uint64_t, std::string, std::string);

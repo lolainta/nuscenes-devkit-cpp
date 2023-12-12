@@ -20,6 +20,9 @@ class Instance {
   const size_t &get_nbr_annotations() const;
   const std::string &get_first_annotation_token() const;
   const std::string &get_last_annotation_token() const;
+
+  Instance &operator=(const Instance &) = default;
+
   Instance() = delete;
   Instance(const json &);
   Instance(std::string, std::string, size_t, std::string, std::string);

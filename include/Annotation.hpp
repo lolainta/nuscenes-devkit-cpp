@@ -31,6 +31,9 @@ class Annotation {
   const std::array<double, 3> &get_size() const;
   const std::string &get_prev() const;
   const std::string &get_next() const;
+
+  Annotation &operator=(const Annotation &) = default;
+
   Annotation() = delete;
   Annotation(const json &);
   Annotation(std::string, std::string, std::string, std::string,

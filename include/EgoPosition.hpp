@@ -20,6 +20,9 @@ class EgoPosition {
   const uint64_t &get_timestamp() const;
   const Rotation &get_rotation() const;
   const Translation &get_translation() const;
+
+  EgoPosition &operator=(const EgoPosition &) = default;
+
   EgoPosition() = delete;
   EgoPosition(const json &);
   EgoPosition(std::string, uint64_t, Rotation, Translation);

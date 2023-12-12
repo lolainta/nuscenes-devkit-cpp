@@ -20,6 +20,9 @@ class CalibratedSensor {
   const std::string &get_sensor_token() const;
   const Translation &get_translation() const;
   const Rotation &get_rotation() const;
+
+  CalibratedSensor &operator=(const CalibratedSensor &) = default;
+
   CalibratedSensor() = delete;
   CalibratedSensor(const json &);
   CalibratedSensor(std::string, std::string, Translation, Rotation);

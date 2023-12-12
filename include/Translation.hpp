@@ -14,6 +14,9 @@ class Translation {
   const long double &get_x() const;
   const long double &get_y() const;
   const long double &get_z() const;
+
+  Translation &operator=(const Translation &) = default;
+
   Translation() = delete;
   Translation(const json &);
   Translation(long double, long double, long double);

@@ -17,6 +17,8 @@ class Rotation {
   const long double &get_z() const;
   const long double &get_w() const;
 
+  Rotation &operator=(const Rotation &) = default;
+
   Rotation() = delete;
   Rotation(const json &);
   Rotation(long double, long double, long double, long double);

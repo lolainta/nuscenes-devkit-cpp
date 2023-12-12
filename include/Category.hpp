@@ -14,6 +14,9 @@ class Category {
   const std::string &get_token() const;
   const std::string &get_name() const;
   const std::string &get_description() const;
+
+  Category &operator=(const Category &) = default;
+
   Category() = delete;
   Category(const json &);
   Category(std::string, std::string, std::string);

@@ -43,19 +43,19 @@ class NuScenes {
   std::vector<Sensor> sensors;
   std::vector<Visibility> visibilities;
 
-  std::unordered_map<std::string, int> annotation_token2idx;
-  std::unordered_map<std::string, int> attribute_token2idx;
-  std::unordered_map<std::string, int> calibrated_sensor_token2idx;
-  std::unordered_map<std::string, int> category_token2idx;
-  std::unordered_map<std::string, int> ego_position_token2idx;
-  std::unordered_map<std::string, int> instance_token2idx;
-  std::unordered_map<std::string, int> log_token2idx;
-  std::unordered_map<std::string, int> map_token2idx;
-  std::unordered_map<std::string, int> sample_token2idx;
-  std::unordered_map<std::string, int> sample_data_token2idx;
-  std::unordered_map<std::string, int> scene_token2idx;
-  std::unordered_map<std::string, int> sensor_token2idx;
-  std::unordered_map<std::string, int> visibility_token2idx;
+  std::unordered_map<std::string, int> annotations_token2idx;
+  std::unordered_map<std::string, int> attributes_token2idx;
+  std::unordered_map<std::string, int> calibrated_sensors_token2idx;
+  std::unordered_map<std::string, int> categories_token2idx;
+  std::unordered_map<std::string, int> ego_positions_token2idx;
+  std::unordered_map<std::string, int> instances_token2idx;
+  std::unordered_map<std::string, int> logs_token2idx;
+  std::unordered_map<std::string, int> maps_token2idx;
+  std::unordered_map<std::string, int> samples_token2idx;
+  std::unordered_map<std::string, int> datas_token2idx;
+  std::unordered_map<std::string, int> scenes_token2idx;
+  std::unordered_map<std::string, int> sensors_token2idx;
+  std::unordered_map<std::string, int> visibilities_token2idx;
 
   void load_data();
   const json load_json(const fs::path &) const;
@@ -94,6 +94,9 @@ class NuScenes {
   const std::vector<Scene> &get_scenes() const;
   const std::vector<Sensor> &get_sensors() const;
   const std::vector<Visibility> &get_visibilities() const;
+
+  NuScenes &operator=(const NuScenes &) = default;
+
   NuScenes() = delete;
   NuScenes(std::string, std::string = "v1.0-mini", bool = false);
   ~NuScenes() = default;

@@ -23,6 +23,9 @@ class Log {
   const std::string &get_vehicle() const;
   const std::string &get_date_captured() const;
   const Location &get_location() const;
+
+  Log &operator=(const Log &) = default;
+
   Log() = delete;
   Log(std::string, fs::path, std::string, std::string, Location);
   Log(const json &);
