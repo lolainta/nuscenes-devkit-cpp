@@ -50,8 +50,10 @@ class Annotation {
 
   Annotation() = delete;
   Annotation(const json &);
-  Annotation(std::string, std::string, std::string, std::string,
-             std::vector<std::string>, Translation, Rotation,
-             std::array<double, 3>, std::string, std::string);
+  Annotation(const std::string &, const std::string &, const std::string &,
+             const std::string &, const std::vector<std::string> &,
+             const Translation &, const Rotation &,
+             const std::array<double, 3> &, const std::string &,
+             const std::string &);
   ~Annotation() = default;
 };

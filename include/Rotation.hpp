@@ -23,7 +23,8 @@ class Rotation {
 
   Rotation() = delete;
   Rotation(const json &);
-  Rotation(long double, long double, long double, long double);
+  Rotation(const long double &, const long double &, const long double &,
+           const long double &);
   Rotation(const Rotation &) = default;
   Rotation(Rotation &&) = default;
   ~Rotation() = default;

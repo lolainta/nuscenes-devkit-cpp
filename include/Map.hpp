@@ -32,7 +32,8 @@ class Map {
   Map &operator=(const Map &) = default;
 
   Map() = delete;
-  Map(std::string, fs::path, std::string, std::vector<std::string>);
+  Map(const std::string &, const fs::path &, const std::string &,
+      const std::vector<std::string> &);
   Map(const json &);
   ~Map() = default;
 };

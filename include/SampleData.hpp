@@ -53,8 +53,9 @@ class SampleData {
 
   SampleData() = delete;
   SampleData(const json &);
-  SampleData(std::string, std::string, std::string, std::string, uint64_t,
-             std::string, bool, size_t, size_t, fs::path, std::string,
-             std::string);
+  SampleData(const std::string &, const std::string &, const std::string &,
+             const std::string &, uint64_t, const std::string &, bool, size_t,
+             size_t, const fs::path &, const std::string &,
+             const std::string &);
   ~SampleData() = default;
 };

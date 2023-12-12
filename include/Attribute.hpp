@@ -20,6 +20,6 @@ class Attribute {
 
   Attribute() = delete;
   Attribute(const json &);
-  Attribute(std::string, std::string);
+  Attribute(const std::string &, const std::string &);
   ~Attribute() = default;
 };

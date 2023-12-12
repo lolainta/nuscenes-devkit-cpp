@@ -23,6 +23,6 @@ class Sensor {
 
   Sensor() = delete;
   Sensor(const json &);
-  Sensor(std::string, std::string, std::string);
+  Sensor(const std::string &, const std::string &, const std::string &);
   ~Sensor() = default;
 };

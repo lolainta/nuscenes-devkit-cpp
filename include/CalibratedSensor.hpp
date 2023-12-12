@@ -31,6 +31,7 @@ class CalibratedSensor {
 
   CalibratedSensor() = delete;
   CalibratedSensor(const json &);
-  CalibratedSensor(std::string, std::string, Translation, Rotation);
+  CalibratedSensor(const std::string &, const std::string &,
+                   const Translation &, const Rotation &);
   ~CalibratedSensor() = default;
 };

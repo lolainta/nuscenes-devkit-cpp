@@ -6,7 +6,8 @@
 using std::cout, std::endl;
 namespace fs = std::filesystem;
 
-NuScenes::NuScenes(std::string dataroot, std::string version, bool verbose)
+NuScenes::NuScenes(const std::string &dataroot, const std::string &version,
+                   bool verbose)
     : dataroot(dataroot), version(version), verbose(verbose) {
   if (this->verbose) cout << "====================" << endl;
   this->path = fs::path(dataroot) / fs::path(version);

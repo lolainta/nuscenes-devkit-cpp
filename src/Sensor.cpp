@@ -1,6 +1,7 @@
 #include "Sensor.hpp"
 
-Sensor::Sensor(std::string token, std::string modality, std::string channel)
+Sensor::Sensor(const std::string &token, const std::string &modality,
+               const std::string &channel)
     : token(token), modality(modality), channel(channel) {}
 
 Sensor::Sensor(const json &j)

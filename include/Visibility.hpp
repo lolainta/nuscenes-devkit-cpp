@@ -23,6 +23,6 @@ class Visibility {
 
   Visibility() = delete;
   Visibility(const json &);
-  Visibility(std::string, std::string, std::string);
+  Visibility(const std::string &, const std::string &, const std::string &);
   ~Visibility() = default;
 };

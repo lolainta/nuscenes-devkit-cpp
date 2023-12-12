@@ -1,6 +1,7 @@
 #include "Rotation.hpp"
 
-Rotation::Rotation(long double x, long double y, long double z, long double w)
+Rotation::Rotation(const long double &x, const long double &y,
+                   const long double &z, const long double &w)
     : x(x), y(y), z(z), w(w) {}
 
 Rotation::Rotation(const json &j) : Rotation(j[0], j[1], j[2], j[3]) {}

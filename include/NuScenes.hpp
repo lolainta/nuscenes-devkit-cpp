@@ -98,6 +98,7 @@ class NuScenes {
   NuScenes &operator=(const NuScenes &) = default;
 
   NuScenes() = delete;
-  NuScenes(std::string, std::string = "v1.0-mini", bool = false);
+  NuScenes(const std::string &, const std::string & = "v1.0-mini",
+           bool = false);
   ~NuScenes() = default;
 };

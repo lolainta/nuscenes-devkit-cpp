@@ -1,7 +1,10 @@
 #include "CalibratedSensor.hpp"
 
-CalibratedSensor::CalibratedSensor(std::string token, std::string sensor_token,
-                                   Translation translation, Rotation rotation)
+CalibratedSensor::CalibratedSensor(const std::string &token,
+                                   const std::string &sensor_token,
+                                   const Translation &translation,
+                                   const Rotation &rotation)
+
     : token(token),
       sensor_token(sensor_token),
       translation(translation),

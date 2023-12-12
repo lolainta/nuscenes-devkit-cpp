@@ -1,8 +1,9 @@
 #include "Instance.hpp"
 
-Instance::Instance(std::string token, std::string category_token,
-                   size_t nbr_annotations, std::string first_annotation_token,
-                   std::string last_annotation_token)
+Instance::Instance(const std::string& token, const std::string& category_token,
+                   size_t nbr_annotations,
+                   const std::string& first_annotation_token,
+                   const std::string& last_annotation_token)
     : token(token),
       category_token(category_token),
       nbr_annotations(nbr_annotations),

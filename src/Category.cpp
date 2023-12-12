@@ -1,6 +1,7 @@
 #include "Category.hpp"
 
-Category::Category(std::string token, std::string name, std::string description)
+Category::Category(const std::string &token, const std::string &name,
+                   const std::string &description)
     : token(token), name(name), description(description) {}
 
 Category::Category(const json &j)

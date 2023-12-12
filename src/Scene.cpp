@@ -1,8 +1,9 @@
 #include "Scene.hpp"
 
-Scene::Scene(std::string token, std::string log_token, size_t nbr_samples,
-             std::string first_sample_token, std::string last_sample_token,
-             std::string name, std::string description)
+Scene::Scene(const std::string &token, const std::string &log_token,
+             const uint64_t &nbr_samples, const std::string &first_sample_token,
+             const std::string &last_sample_token, const std::string &name,
+             const std::string &description)
     : token(token),
       log_token(log_token),
       nbr_samples(nbr_samples),

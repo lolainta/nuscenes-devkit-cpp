@@ -34,6 +34,7 @@ class Sample {
 
   Sample() = delete;
   Sample(const json &);
-  Sample(std::string, std::string, uint64_t, std::string, std::string);
+  Sample(const std::string &, const std::string &, uint64_t,
+         const std::string &, const std::string &);
   ~Sample() = default;
 };
