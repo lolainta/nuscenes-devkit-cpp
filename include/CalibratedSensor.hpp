@@ -6,14 +6,20 @@
 #include "Translation.hpp"
 #include "nlohmann/json.hpp"
 
+class Sensor;
+
 using json = nlohmann::json;
 
 class CalibratedSensor {
+  friend class NuScenes;
+
  private:
   std::string token;
   std::string sensor_token;
   Translation translation;
   Rotation rotation;
+
+  Sensor *sensor;
 
  public:
   const std::string &get_token() const;

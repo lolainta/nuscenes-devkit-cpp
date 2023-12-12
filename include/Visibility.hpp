@@ -7,6 +7,8 @@
 using json = nlohmann::json;
 
 class Visibility {
+  friend class NuScenes;
+
  private:
   std::string token;
   std::string level;

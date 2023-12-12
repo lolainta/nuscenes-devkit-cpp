@@ -5,6 +5,8 @@
 using json = nlohmann::json;
 
 class Rotation {
+  friend class NuScenes;
+
  private:
   long double x;
   long double y;

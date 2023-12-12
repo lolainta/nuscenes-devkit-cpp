@@ -111,12 +111,72 @@ void NuScenes::load_visibilities() { LOAD_DATA(visibilities, visibility); }
 
 #undef LOAD_DATA
 
-void NuScenes::reverse_index() { this->build_token2idx(); }
-
+void NuScenes::reverse_index() {
+  this->build_token2idx();
+  for (auto &annotation : this->annotations) {
+    annotation.sample =
+        &this->samples[this->samples_token2idx[annotation.sample_token]];
+    annotation.instance =
+        &this->instances[this->instances_token2idx[annotation.instance_token]];
+    annotation.visibility =
+        &this->visibilities
+             [this->visibilities_token2idx[annotation.visibility_token]];
+    for (auto &attribute_token : annotation.attribute_tokens) {
+      annotation.attributes.push_back(
+          &this->attributes[this->attributes_token2idx[attribute_token]]);
+    }
+    annotation.prev =
+        &this->annotations[this->annotations_token2idx[annotation.prev_token]];
+    annotation.next =
+        &this->annotations[this->annotations_token2idx[annotation.next_token]];
+  }
+  for (auto &calibrated_sensor : this->calibrated_sensors) {
+    calibrated_sensor.sensor =
+        &this->sensors[this->sensors_token2idx[calibrated_sensor.sensor_token]];
+  }
+  for (auto &instance : this->instances) {
+    instance.category =
+        &this->categories[this->categories_token2idx[instance.category_token]];
+    instance.first_annotation =
+        &this->annotations
+             [this->annotations_token2idx[instance.first_annotation_token]];
+    instance.last_annotation =
+        &this->annotations
+             [this->annotations_token2idx[instance.last_annotation_token]];
+  }
+  for (auto &map : this->maps) {
+    for (const auto &log_token : map.log_tokens) {
+      map.logs.push_back(&this->logs[this->logs_token2idx[log_token]]);
+    }
+  }
+  for (auto &sample : this->samples) {
+    sample.scene = &this->scenes[this->scenes_token2idx[sample.scene_token]];
+    sample.next = &this->samples[this->samples_token2idx[sample.next_token]];
+    sample.prev = &this->samples[this->samples_token2idx[sample.prev_token]];
+  }
+  for (auto &sample_data : this->datas) {
+    sample_data.sample =
+        &this->samples[this->samples_token2idx[sample_data.sample_token]];
+    sample_data.calibrated_sensor =
+        &this->calibrated_sensors[this->calibrated_sensors_token2idx
+                                      [sample_data.calibrated_sensor_token]];
+    sample_data.next =
+        &this->datas[this->datas_token2idx[sample_data.next_token]];
+    sample_data.prev =
+        &this->datas[this->datas_token2idx[sample_data.prev_token]];
+  }
+  for (auto &scene : this->scenes) {
+    scene.log = &this->logs[this->logs_token2idx[scene.log_token]];
+    scene.first_sample =
+        &this->samples[this->samples_token2idx[scene.first_sample_token]];
+    scene.last_sample =
+        &this->samples[this->samples_token2idx[scene.last_sample_token]];
+  }
+}
 void NuScenes::build_token2idx() {
-#define BUILD_TOKEN2IDX(member)                                \
-  for (size_t i = 0; i < this->member.size(); ++i) {           \
-    this->member##_token2idx[this->member[i].get_token()] = i; \
+#define BUILD_TOKEN2IDX(member)                          \
+  for (size_t i = 0; i < this->member.size(); ++i) {     \
+    this->member##_token2idx[this->member[i].token] = i; \
   }
   BUILD_TOKEN2IDX(annotations);
   BUILD_TOKEN2IDX(attributes);

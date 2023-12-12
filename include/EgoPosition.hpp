@@ -9,6 +9,8 @@
 using json = nlohmann::json;
 
 class EgoPosition {
+  friend class NuScenes;
+
  private:
   std::string token;
   uint64_t timestamp;

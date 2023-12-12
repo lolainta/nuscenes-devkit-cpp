@@ -50,8 +50,8 @@ void bind_Annotation(py::module &m) {
       .def_property_readonly("translation", &Annotation::get_translation)
       .def_property_readonly("rotation", &Annotation::get_rotation)
       .def_property_readonly("size", &Annotation::get_size)
-      .def_property_readonly("prev", &Annotation::get_prev)
-      .def_property_readonly("next", &Annotation::get_next);
+      .def_property_readonly("prev", &Annotation::get_prev_token)
+      .def_property_readonly("next", &Annotation::get_next_token);
 }
 
 void bind_Attribute(py::module &m) {
@@ -133,8 +133,8 @@ void bind_SampleData(py::module &m) {
       .def_property_readonly("height", &SampleData::get_height)
       .def_property_readonly("width", &SampleData::get_width)
       .def_property_readonly("filename", &SampleData::get_filename)
-      .def_property_readonly("prev", &SampleData::get_prev)
-      .def_property_readonly("next", &SampleData::get_next);
+      .def_property_readonly("prev", &SampleData::get_prev_token)
+      .def_property_readonly("next", &SampleData::get_next_token);
 }
 
 void bind_Sample(py::module &m) {
@@ -142,8 +142,8 @@ void bind_Sample(py::module &m) {
       .def_property_readonly("token", &Sample::get_token)
       .def_property_readonly("scene_token", &Sample::get_scene_token)
       .def_property_readonly("timestamp", &Sample::get_timestamp)
-      .def_property_readonly("next", &Sample::get_next)
-      .def_property_readonly("prev", &Sample::get_prev);
+      .def_property_readonly("next", &Sample::get_next_token)
+      .def_property_readonly("prev", &Sample::get_prev_token);
 }
 
 void bind_Scene(py::module &m) {

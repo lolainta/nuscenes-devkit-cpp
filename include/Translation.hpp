@@ -5,6 +5,8 @@
 using json = nlohmann::json;
 
 class Translation {
+  friend class NuScenes;
+
  private:
   long double x;
   long double y;

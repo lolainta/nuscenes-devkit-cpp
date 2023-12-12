@@ -4,8 +4,8 @@ Annotation::Annotation(std::string token, std::string sample_token,
                        std::string instance_token, std::string visibility_token,
                        std::vector<std::string> attribute_tokens,
                        Translation translation, Rotation rotation,
-                       std::array<double, 3> size, std::string prev,
-                       std::string next)
+                       std::array<double, 3> size, std::string prev_token,
+                       std::string next_token)
     : token(token),
       sample_token(sample_token),
       instance_token(instance_token),
@@ -14,8 +14,8 @@ Annotation::Annotation(std::string token, std::string sample_token,
       translation(translation),
       rotation(rotation),
       size(size),
-      prev(prev),
-      next(next) {}
+      prev_token(prev_token),
+      next_token(next_token) {}
 
 Annotation::Annotation(const json &j)
     : token(j.at("token").get<std::string>()),
@@ -27,8 +27,8 @@ Annotation::Annotation(const json &j)
       translation(j.at("translation")),
       rotation(j.at("rotation")),
       size(j.at("size").get<std::array<double, 3>>()),
-      prev(j.at("prev").get<std::string>()),
-      next(j.at("next").get<std::string>()) {}
+      prev_token(j.at("prev").get<std::string>()),
+      next_token(j.at("next").get<std::string>()) {}
 
 const std::string &Annotation::get_token() const { return this->token; }
 
@@ -56,6 +56,10 @@ const Rotation &Annotation::get_rotation() const { return this->rotation; }
 
 const std::array<double, 3> &Annotation::get_size() const { return this->size; }
 
-const std::string &Annotation::get_prev() const { return this->prev; }
+const std::string &Annotation::get_prev_token() const {
+  return this->prev_token;
+}
 
-const std::string &Annotation::get_next() const { return this->next; }
+const std::string &Annotation::get_next_token() const {
+  return this->next_token;
+}

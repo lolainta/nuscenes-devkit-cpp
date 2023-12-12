@@ -2,9 +2,12 @@
 #include <string>
 
 #include "nlohmann/json.hpp"
+
 using json = nlohmann::json;
 
 class Category {
+  friend class NuScenes;
+
  private:
   std::string token;
   std::string name;

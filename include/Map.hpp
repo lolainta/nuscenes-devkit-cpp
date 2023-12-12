@@ -7,15 +7,21 @@
 #include "enums.hpp"
 #include "nlohmann/json.hpp"
 
+class Log;
+
 namespace fs = std::filesystem;
 using json = nlohmann::json;
 
 class Map {
+  friend class NuScenes;
+
  private:
   std::string token;
   fs::path filename;
   std::string category;
   std::vector<std::string> log_tokens;
+
+  std::vector<Log *> logs;
 
  public:
   const std::string &get_token() const;

@@ -10,6 +10,8 @@ namespace fs = std::filesystem;
 using json = nlohmann::json;
 
 class Log {
+  friend class NuScenes;
+
  private:
   std::string token;
   fs::path logfile;

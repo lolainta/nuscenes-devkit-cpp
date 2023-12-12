@@ -6,6 +6,8 @@
 using json = nlohmann::json;
 
 class Attribute {
+  friend class NuScenes;
+
  private:
   std::string token;
   std::string description;

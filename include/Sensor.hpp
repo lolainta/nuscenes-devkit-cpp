@@ -7,6 +7,8 @@
 using json = nlohmann::json;
 
 class Sensor {
+  friend class NuScenes;
+
  private:
   std::string token;
   std::string modality;

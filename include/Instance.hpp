@@ -4,15 +4,24 @@
 
 #include "nlohmann/json.hpp"
 
+class Category;
+class Annotation;
+
 using json = nlohmann::json;
 
 class Instance {
+  friend class NuScenes;
+
  private:
   std::string token;
   std::string category_token;
   size_t nbr_annotations;
   std::string first_annotation_token;
   std::string last_annotation_token;
+
+  Category *category;
+  Annotation *first_annotation;
+  Annotation *last_annotation;
 
  public:
   const std::string &get_token() const;
