@@ -35,8 +35,11 @@ class Scene {
   const std::string &get_description() const;
 
   Scene &operator=(const Scene &) = default;
+  Scene &operator=(Scene &&) = default;
 
   Scene() = delete;
+  Scene(const Scene &) = default;
+  Scene(Scene &&) = default;
   Scene(const json &);
   Scene(const std::string &, const std::string &, const size_t &,
         const std::string &, const std::string &, const std::string &,

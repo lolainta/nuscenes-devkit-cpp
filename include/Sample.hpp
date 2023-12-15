@@ -31,8 +31,11 @@ class Sample {
   const std::string &get_next_token() const;
 
   Sample &operator=(const Sample &) = default;
+  Sample &operator=(Sample &&) = default;
 
   Sample() = delete;
+  Sample(const Sample &) = default;
+  Sample(Sample &&) = default;
   Sample(const json &);
   Sample(const std::string &, const std::string &, uint64_t,
          const std::string &, const std::string &);

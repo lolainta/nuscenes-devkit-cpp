@@ -28,8 +28,11 @@ class CalibratedSensor {
   const Rotation &get_rotation() const;
 
   CalibratedSensor &operator=(const CalibratedSensor &) = default;
+  CalibratedSensor &operator=(CalibratedSensor &&) = default;
 
   CalibratedSensor() = delete;
+  CalibratedSensor(const CalibratedSensor &) = default;
+  CalibratedSensor(CalibratedSensor &&) = default;
   CalibratedSensor(const json &);
   CalibratedSensor(const std::string &, const std::string &,
                    const Translation &, const Rotation &);

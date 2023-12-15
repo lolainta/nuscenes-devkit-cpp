@@ -31,8 +31,11 @@ class Instance {
   const std::string &get_last_annotation_token() const;
 
   Instance &operator=(const Instance &) = default;
+  Instance &operator=(Instance &&) = default;
 
   Instance() = delete;
+  Instance(const Instance &) = default;
+  Instance(Instance &&) = default;
   Instance(const json &);
   Instance(const std::string &, const std::string &, size_t,
            const std::string &, const std::string &);

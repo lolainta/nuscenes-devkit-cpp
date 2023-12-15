@@ -95,9 +95,12 @@ class NuScenes {
   const std::vector<Sensor> &get_sensors() const;
   const std::vector<Visibility> &get_visibilities() const;
 
-  NuScenes &operator=(const NuScenes &) = default;
+    NuScenes &operator=(const NuScenes &) = default;
+  NuScenes &operator=(NuScenes &&) = default;
 
   NuScenes() = delete;
+  NuScenes(const NuScenes &) = default;
+  NuScenes(NuScenes &&) = default;
   NuScenes(const std::string &, const std::string & = "v1.0-mini",
            bool = false);
   ~NuScenes() = default;

@@ -50,8 +50,11 @@ class SampleData {
   const std::string &get_next_token() const;
 
   SampleData &operator=(const SampleData &) = default;
+  SampleData &operator=(SampleData &&) = default;
 
   SampleData() = delete;
+  SampleData(const SampleData &) = default;
+  SampleData(SampleData &&) = default;
   SampleData(const json &);
   SampleData(const std::string &, const std::string &, const std::string &,
              const std::string &, uint64_t, const std::string &, bool, size_t,

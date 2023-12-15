@@ -30,8 +30,11 @@ class Map {
   const std::vector<std::string> &get_log_tokens() const;
 
   Map &operator=(const Map &) = default;
+  Map &operator=(Map &&) = default;
 
   Map() = delete;
+  Map(const Map &) = default;
+  Map(Map &&) = default;
   Map(const std::string &, const fs::path &, const std::string &,
       const std::vector<std::string> &);
   Map(const json &);

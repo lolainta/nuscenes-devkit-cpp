@@ -27,8 +27,11 @@ class Log {
   const Location &get_location() const;
 
   Log &operator=(const Log &) = default;
+  Log &operator=(Log &&) = default;
 
   Log() = delete;
+  Log(const Log &) = default;
+  Log(Log &&) = default;
   Log(const std::string &, const fs::path &, const std::string &,
       const std::string &, const Location &);
   Log(const json &);

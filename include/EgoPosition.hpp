@@ -24,8 +24,11 @@ class EgoPosition {
   const Translation &get_translation() const;
 
   EgoPosition &operator=(const EgoPosition &) = default;
+  EgoPosition &operator=(EgoPosition &&) = default;
 
   EgoPosition() = delete;
+  EgoPosition(const EgoPosition &) = default;
+  EgoPosition(EgoPosition &&) = default;
   EgoPosition(const json &);
   EgoPosition(const std::string &, uint64_t, const Rotation &,
               const Translation &);

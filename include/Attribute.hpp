@@ -17,8 +17,11 @@ class Attribute {
   const std::string &get_description() const;
 
   Attribute &operator=(const Attribute &) = default;
+  Attribute &operator=(Attribute &&) = default;
 
   Attribute() = delete;
+  Attribute(const Attribute &) = default;
+  Attribute(Attribute &&) = default;
   Attribute(const json &);
   Attribute(const std::string &, const std::string &);
   ~Attribute() = default;
