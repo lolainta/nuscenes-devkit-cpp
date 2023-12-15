@@ -75,6 +75,13 @@ class NuScenes {
 
   void build_token2idx();
   void reverse_index();
+  void index_annotations();
+  void index_calibrated_sensors();
+  void index_instances();
+  void index_maps();
+  void index_samples();
+  void index_sample_datas();
+  void index_scenes();
 
  public:
   const fs::path &get_path() const;
