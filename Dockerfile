@@ -8,4 +8,4 @@ RUN pacman -Sy --noconfirm fish
 WORKDIR /workdir
 COPY . ./
 RUN cmake -S . -B build
-RUN cmake --build build
+RUN cmake --build build -j
