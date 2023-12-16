@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "nlohmann/json.hpp"
 
@@ -21,9 +22,11 @@ class Scene {
   std::string name;
   std::string description;
 
-  Log *log;
-  Sample *first_sample;
-  Sample *last_sample;
+  Log *log = nullptr;
+  Sample *first_sample = nullptr;
+  Sample *last_sample = nullptr;
+
+  std::vector<Sample *> samples;
 
  public:
   const std::string &get_token() const;

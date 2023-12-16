@@ -19,7 +19,7 @@ class CalibratedSensor {
   Translation translation;
   Rotation rotation;
 
-  Sensor *sensor;
+  Sensor *sensor = nullptr;
 
  public:
   const std::string &get_token() const;

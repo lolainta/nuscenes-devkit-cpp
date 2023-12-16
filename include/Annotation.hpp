@@ -27,12 +27,12 @@ class Annotation {
   std::string prev_token;
   std::string next_token;
 
-  Sample *sample;
-  Instance *instance;
-  Visibility *visibility;
+  Sample *sample = nullptr;
+  Instance *instance = nullptr;
+  Visibility *visibility = nullptr;
   std::vector<Attribute *> attributes;
-  Annotation *prev;
-  Annotation *next;
+  Annotation *prev = nullptr;
+  Annotation *next = nullptr;
 
  public:
   const std::string &get_token() const;

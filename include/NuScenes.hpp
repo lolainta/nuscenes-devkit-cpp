@@ -43,19 +43,20 @@ class NuScenes {
   std::vector<Sensor> sensors;
   std::vector<Visibility> visibilities;
 
-  std::unordered_map<std::string, int> annotations_token2idx;
-  std::unordered_map<std::string, int> attributes_token2idx;
-  std::unordered_map<std::string, int> calibrated_sensors_token2idx;
-  std::unordered_map<std::string, int> categories_token2idx;
-  std::unordered_map<std::string, int> ego_positions_token2idx;
-  std::unordered_map<std::string, int> instances_token2idx;
-  std::unordered_map<std::string, int> logs_token2idx;
-  std::unordered_map<std::string, int> maps_token2idx;
-  std::unordered_map<std::string, int> samples_token2idx;
-  std::unordered_map<std::string, int> datas_token2idx;
-  std::unordered_map<std::string, int> scenes_token2idx;
-  std::unordered_map<std::string, int> sensors_token2idx;
-  std::unordered_map<std::string, int> visibilities_token2idx;
+  std::unordered_map<std::string, Annotation *> annotations_token2ptr;
+  std::unordered_map<std::string, Attribute *> attributes_token2ptr;
+  std::unordered_map<std::string, CalibratedSensor *>
+      calibrated_sensors_token2ptr;
+  std::unordered_map<std::string, Category *> categories_token2ptr;
+  std::unordered_map<std::string, EgoPosition *> ego_positions_token2ptr;
+  std::unordered_map<std::string, Instance *> instances_token2ptr;
+  std::unordered_map<std::string, Log *> logs_token2ptr;
+  std::unordered_map<std::string, Map *> maps_token2ptr;
+  std::unordered_map<std::string, Sample *> samples_token2ptr;
+  std::unordered_map<std::string, SampleData *> datas_token2ptr;
+  std::unordered_map<std::string, Scene *> scenes_token2ptr;
+  std::unordered_map<std::string, Sensor *> sensors_token2ptr;
+  std::unordered_map<std::string, Visibility *> visibilities_token2ptr;
 
   void load_data();
   const json load_json(const fs::path &) const;

@@ -29,11 +29,11 @@ class SampleData {
   std::string prev_token;
   std::string next_token;
 
-  Sample *sample;
-  EgoPosition *ego_pose;
-  CalibratedSensor *calibrated_sensor;
-  SampleData *prev;
-  SampleData *next;
+  Sample *sample = nullptr;
+  EgoPosition *ego_pose = nullptr;
+  CalibratedSensor *calibrated_sensor = nullptr;
+  SampleData *prev = nullptr;
+  SampleData *next = nullptr;
 
  public:
   const std::string &get_token() const;
