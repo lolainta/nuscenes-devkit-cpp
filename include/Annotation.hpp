@@ -27,12 +27,12 @@ class Annotation {
   std::string prev_token;
   std::string next_token;
 
-  Sample *sample;
-  Instance *instance;
-  Visibility *visibility;
+  Sample *sample = nullptr;
+  Instance *instance = nullptr;
+  Visibility *visibility = nullptr;
   std::vector<Attribute *> attributes;
-  Annotation *prev;
-  Annotation *next;
+  Annotation *prev = nullptr;
+  Annotation *next = nullptr;
 
  public:
   const std::string &get_token() const;
@@ -47,8 +47,11 @@ class Annotation {
   const std::string &get_next_token() const;
 
   Annotation &operator=(const Annotation &) = default;
+  Annotation &operator=(Annotation &&) = default;
 
   Annotation() = delete;
+  Annotation(const Annotation &) = default;
+  Annotation(Annotation &&) = default;
   Annotation(const json &);
   Annotation(const std::string &, const std::string &, const std::string &,
              const std::string &, const std::vector<std::string> &,

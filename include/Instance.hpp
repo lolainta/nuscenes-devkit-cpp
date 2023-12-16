@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 #include "nlohmann/json.hpp"
 
@@ -19,9 +20,11 @@ class Instance {
   std::string first_annotation_token;
   std::string last_annotation_token;
 
-  Category *category;
-  Annotation *first_annotation;
-  Annotation *last_annotation;
+  Category *category = nullptr;
+  Annotation *first_annotation = nullptr;
+  Annotation *last_annotation = nullptr;
+
+  std::vector<Annotation *> annotations;
 
  public:
   const std::string &get_token() const;
@@ -31,8 +34,11 @@ class Instance {
   const std::string &get_last_annotation_token() const;
 
   Instance &operator=(const Instance &) = default;
+  Instance &operator=(Instance &&) = default;
 
   Instance() = delete;
+  Instance(const Instance &) = default;
+  Instance(Instance &&) = default;
   Instance(const json &);
   Instance(const std::string &, const std::string &, size_t,
            const std::string &, const std::string &);

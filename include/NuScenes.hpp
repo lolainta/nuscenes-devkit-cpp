@@ -43,19 +43,20 @@ class NuScenes {
   std::vector<Sensor> sensors;
   std::vector<Visibility> visibilities;
 
-  std::unordered_map<std::string, int> annotations_token2idx;
-  std::unordered_map<std::string, int> attributes_token2idx;
-  std::unordered_map<std::string, int> calibrated_sensors_token2idx;
-  std::unordered_map<std::string, int> categories_token2idx;
-  std::unordered_map<std::string, int> ego_positions_token2idx;
-  std::unordered_map<std::string, int> instances_token2idx;
-  std::unordered_map<std::string, int> logs_token2idx;
-  std::unordered_map<std::string, int> maps_token2idx;
-  std::unordered_map<std::string, int> samples_token2idx;
-  std::unordered_map<std::string, int> datas_token2idx;
-  std::unordered_map<std::string, int> scenes_token2idx;
-  std::unordered_map<std::string, int> sensors_token2idx;
-  std::unordered_map<std::string, int> visibilities_token2idx;
+  std::unordered_map<std::string, Annotation *> annotations_token2ptr;
+  std::unordered_map<std::string, Attribute *> attributes_token2ptr;
+  std::unordered_map<std::string, CalibratedSensor *>
+      calibrated_sensors_token2ptr;
+  std::unordered_map<std::string, Category *> categories_token2ptr;
+  std::unordered_map<std::string, EgoPosition *> ego_positions_token2ptr;
+  std::unordered_map<std::string, Instance *> instances_token2ptr;
+  std::unordered_map<std::string, Log *> logs_token2ptr;
+  std::unordered_map<std::string, Map *> maps_token2ptr;
+  std::unordered_map<std::string, Sample *> samples_token2ptr;
+  std::unordered_map<std::string, SampleData *> datas_token2ptr;
+  std::unordered_map<std::string, Scene *> scenes_token2ptr;
+  std::unordered_map<std::string, Sensor *> sensors_token2ptr;
+  std::unordered_map<std::string, Visibility *> visibilities_token2ptr;
 
   void load_data();
   const json load_json(const fs::path &) const;
@@ -75,6 +76,13 @@ class NuScenes {
 
   void build_token2idx();
   void reverse_index();
+  void index_annotations();
+  void index_calibrated_sensors();
+  void index_instances();
+  void index_maps();
+  void index_samples();
+  void index_sample_datas();
+  void index_scenes();
 
  public:
   const fs::path &get_path() const;
@@ -95,9 +103,12 @@ class NuScenes {
   const std::vector<Sensor> &get_sensors() const;
   const std::vector<Visibility> &get_visibilities() const;
 
-  NuScenes &operator=(const NuScenes &) = default;
+    NuScenes &operator=(const NuScenes &) = default;
+  NuScenes &operator=(NuScenes &&) = default;
 
   NuScenes() = delete;
+  NuScenes(const NuScenes &) = default;
+  NuScenes(NuScenes &&) = default;
   NuScenes(const std::string &, const std::string & = "v1.0-mini",
            bool = false);
   ~NuScenes() = default;

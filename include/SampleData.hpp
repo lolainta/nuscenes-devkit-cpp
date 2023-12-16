@@ -29,11 +29,11 @@ class SampleData {
   std::string prev_token;
   std::string next_token;
 
-  Sample *sample;
-  EgoPosition *ego_pose;
-  CalibratedSensor *calibrated_sensor;
-  SampleData *prev;
-  SampleData *next;
+  Sample *sample = nullptr;
+  EgoPosition *ego_pose = nullptr;
+  CalibratedSensor *calibrated_sensor = nullptr;
+  SampleData *prev = nullptr;
+  SampleData *next = nullptr;
 
  public:
   const std::string &get_token() const;
@@ -50,8 +50,11 @@ class SampleData {
   const std::string &get_next_token() const;
 
   SampleData &operator=(const SampleData &) = default;
+  SampleData &operator=(SampleData &&) = default;
 
   SampleData() = delete;
+  SampleData(const SampleData &) = default;
+  SampleData(SampleData &&) = default;
   SampleData(const json &);
   SampleData(const std::string &, const std::string &, const std::string &,
              const std::string &, uint64_t, const std::string &, bool, size_t,

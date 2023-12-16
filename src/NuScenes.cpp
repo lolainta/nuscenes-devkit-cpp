@@ -57,14 +57,8 @@ const json NuScenes::load_json(const fs::path &path) const {
     if (!fs::exists(path)) {
       throw std::runtime_error("File " + path.string() + " does not exist.");
     }
-    auto start = std::chrono::high_resolution_clock::now();
     std::ifstream file(path);
     ret = json::parse(file);
-    auto end = std::chrono::high_resolution_clock::now();
-    cout << "Loaded " << path.string() << " in "
-         << std::chrono::duration_cast<std::chrono::milliseconds>(end - start)
-                .count()
-         << " ms" << endl;
   } catch (const std::exception &e) {
     std::cerr << e.what() << std::endl;
     exit(1);
@@ -114,70 +108,48 @@ void NuScenes::load_visibilities() { LOAD_DATA(visibilities, visibility); }
 
 void NuScenes::reverse_index() {
   this->build_token2idx();
-  for (auto &annotation : this->annotations) {
-    annotation.sample =
-        &this->samples[this->samples_token2idx[annotation.sample_token]];
-    annotation.instance =
-        &this->instances[this->instances_token2idx[annotation.instance_token]];
-    annotation.visibility =
-        &this->visibilities
-             [this->visibilities_token2idx[annotation.visibility_token]];
-    for (auto &attribute_token : annotation.attribute_tokens) {
-      annotation.attributes.push_back(
-          &this->attributes[this->attributes_token2idx[attribute_token]]);
+
+  this->index_annotations();
+  this->index_calibrated_sensors();
+  this->index_instances();
+  this->index_maps();
+  this->index_samples();
+  this->index_sample_datas();
+  this->index_scenes();
+
+  for (auto &instances : this->instances) {
+    Annotation *first_annotation = instances.first_annotation;
+    while (first_annotation != nullptr) {
+      instances.annotations.push_back(first_annotation);
+      first_annotation = first_annotation->next;
+      assert(instances.annotations.size() <= instances.nbr_annotations);
     }
-    annotation.prev =
-        &this->annotations[this->annotations_token2idx[annotation.prev_token]];
-    annotation.next =
-        &this->annotations[this->annotations_token2idx[annotation.next_token]];
+    assert(instances.annotations.size() == instances.nbr_annotations);
   }
-  for (auto &calibrated_sensor : this->calibrated_sensors) {
-    calibrated_sensor.sensor =
-        &this->sensors[this->sensors_token2idx[calibrated_sensor.sensor_token]];
-  }
-  for (auto &instance : this->instances) {
-    instance.category =
-        &this->categories[this->categories_token2idx[instance.category_token]];
-    instance.first_annotation =
-        &this->annotations
-             [this->annotations_token2idx[instance.first_annotation_token]];
-    instance.last_annotation =
-        &this->annotations
-             [this->annotations_token2idx[instance.last_annotation_token]];
-  }
-  for (auto &map : this->maps) {
-    for (const auto &log_token : map.log_tokens) {
-      map.logs.push_back(&this->logs[this->logs_token2idx[log_token]]);
-    }
-  }
-  for (auto &sample : this->samples) {
-    sample.scene = &this->scenes[this->scenes_token2idx[sample.scene_token]];
-    sample.next = &this->samples[this->samples_token2idx[sample.next_token]];
-    sample.prev = &this->samples[this->samples_token2idx[sample.prev_token]];
-  }
-  for (auto &sample_data : this->datas) {
-    sample_data.sample =
-        &this->samples[this->samples_token2idx[sample_data.sample_token]];
-    sample_data.calibrated_sensor =
-        &this->calibrated_sensors[this->calibrated_sensors_token2idx
-                                      [sample_data.calibrated_sensor_token]];
-    sample_data.next =
-        &this->datas[this->datas_token2idx[sample_data.next_token]];
-    sample_data.prev =
-        &this->datas[this->datas_token2idx[sample_data.prev_token]];
-  }
+
   for (auto &scene : this->scenes) {
-    scene.log = &this->logs[this->logs_token2idx[scene.log_token]];
-    scene.first_sample =
-        &this->samples[this->samples_token2idx[scene.first_sample_token]];
-    scene.last_sample =
-        &this->samples[this->samples_token2idx[scene.last_sample_token]];
+    Sample *cur_sample = scene.first_sample;
+    while (cur_sample != nullptr) {
+      assert(scene.samples.size() < scene.nbr_samples);
+      scene.samples.push_back(cur_sample);
+      assert(cur_sample->scene == &scene);
+      cur_sample = cur_sample->next;
+    }
+    assert(scene.samples.size() == scene.nbr_samples);
+  }
+
+  for (auto &sample_data : this->datas) {
+    if (sample_data.is_key_frame) {
+      sample_data.sample->datas[sample_data.calibrated_sensor->sensor] =
+          &sample_data;
+    }
   }
 }
+
 void NuScenes::build_token2idx() {
-#define BUILD_TOKEN2IDX(member)                          \
-  for (size_t i = 0; i < this->member.size(); ++i) {     \
-    this->member##_token2idx[this->member[i].token] = i; \
+#define BUILD_TOKEN2IDX(member)                                         \
+  for (size_t i = 0; i < this->member.size(); ++i) {                    \
+    this->member##_token2ptr[this->member[i].token] = &this->member[i]; \
   }
   BUILD_TOKEN2IDX(annotations);
   BUILD_TOKEN2IDX(attributes);
@@ -193,6 +165,74 @@ void NuScenes::build_token2idx() {
   BUILD_TOKEN2IDX(sensors);
   BUILD_TOKEN2IDX(visibilities);
 #undef BUILD_TOKEN2IDX
+}
+
+void NuScenes::index_annotations() {
+  for (auto &annotation : this->annotations) {
+    annotation.sample = this->samples_token2ptr[annotation.sample_token];
+    annotation.instance = this->instances_token2ptr[annotation.instance_token];
+    annotation.visibility =
+        this->visibilities_token2ptr[annotation.visibility_token];
+    for (auto &attribute_token : annotation.attribute_tokens) {
+      annotation.attributes.push_back(
+          this->attributes_token2ptr[attribute_token]);
+    }
+    annotation.prev = this->annotations_token2ptr[annotation.prev_token];
+    annotation.next = this->annotations_token2ptr[annotation.next_token];
+  }
+}
+
+void NuScenes::index_calibrated_sensors() {
+  for (auto &calibrated_sensor : this->calibrated_sensors) {
+    calibrated_sensor.sensor =
+        this->sensors_token2ptr[calibrated_sensor.sensor_token];
+  }
+}
+
+void NuScenes::index_instances() {
+  for (auto &instance : this->instances) {
+    instance.category = this->categories_token2ptr[instance.category_token];
+    instance.first_annotation =
+        this->annotations_token2ptr[instance.first_annotation_token];
+    instance.last_annotation =
+        this->annotations_token2ptr[instance.last_annotation_token];
+  }
+}
+
+void NuScenes::index_maps() {
+  for (auto &map : this->maps) {
+    for (auto &log_token : map.log_tokens) {
+      map.logs.emplace_back(this->logs_token2ptr[log_token]);
+    }
+  }
+}
+
+void NuScenes::index_samples() {
+  for (auto &sample : this->samples) {
+    sample.scene = scenes_token2ptr[sample.scene_token];
+    sample.prev = this->samples_token2ptr[sample.prev_token];
+    sample.next = this->samples_token2ptr[sample.next_token];
+  }
+}
+
+void NuScenes::index_sample_datas() {
+  for (auto &sample_data : this->datas) {
+    sample_data.sample = this->samples_token2ptr[sample_data.sample_token];
+    sample_data.ego_pose =
+        this->ego_positions_token2ptr[sample_data.ego_pose_token];
+    sample_data.calibrated_sensor =
+        this->calibrated_sensors_token2ptr[sample_data.calibrated_sensor_token];
+    sample_data.prev = this->datas_token2ptr[sample_data.prev_token];
+    sample_data.next = this->datas_token2ptr[sample_data.next_token];
+  }
+}
+
+void NuScenes::index_scenes() {
+  for (auto &scene : this->scenes) {
+    scene.log = this->logs_token2ptr[scene.log_token];
+    scene.first_sample = this->samples_token2ptr[scene.first_sample_token];
+    scene.last_sample = this->samples_token2ptr[scene.last_sample_token];
+  }
 }
 
 const fs::path &NuScenes::get_path() const { return this->path; }
