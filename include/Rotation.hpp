@@ -20,12 +20,13 @@ class Rotation {
   const long double &get_w() const;
 
   Rotation &operator=(const Rotation &) = default;
+  Rotation &operator=(Rotation &&) = default;
 
   Rotation() = delete;
+  Rotation(const Rotation &) = default;
+  Rotation(Rotation &&) = default;
   Rotation(const json &);
   Rotation(const long double &, const long double &, const long double &,
            const long double &);
-  Rotation(const Rotation &) = default;
-  Rotation(Rotation &&) = default;
   ~Rotation() = default;
 };

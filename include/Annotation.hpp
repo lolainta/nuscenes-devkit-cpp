@@ -47,8 +47,11 @@ class Annotation {
   const std::string &get_next_token() const;
 
   Annotation &operator=(const Annotation &) = default;
+  Annotation &operator=(Annotation &&) = default;
 
   Annotation() = delete;
+  Annotation(const Annotation &) = default;
+  Annotation(Annotation &&) = default;
   Annotation(const json &);
   Annotation(const std::string &, const std::string &, const std::string &,
              const std::string &, const std::vector<std::string> &,

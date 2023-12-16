@@ -18,11 +18,12 @@ class Translation {
   const long double &get_z() const;
 
   Translation &operator=(const Translation &) = default;
+  Translation &operator=(Translation &&) = default;
 
   Translation() = delete;
-  Translation(const json &);
-  Translation(const long double &, const long double &, const long double &);
   Translation(const Translation &) = default;
   Translation(Translation &&) = default;
+  Translation(const json &);
+  Translation(const long double &, const long double &, const long double &);
   ~Translation() = default;
 };

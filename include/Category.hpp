@@ -19,8 +19,11 @@ class Category {
   const std::string &get_description() const;
 
   Category &operator=(const Category &) = default;
+  Category &operator=(Category &&) = default;
 
   Category() = delete;
+  Category(const Category &) = default;
+  Category(Category &&) = default;
   Category(const json &);
   Category(const std::string &, const std::string &, const std::string &);
   ~Category() = default;

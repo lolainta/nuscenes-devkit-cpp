@@ -1,7 +1,7 @@
 #include "Scene.hpp"
 
 Scene::Scene(const std::string &token, const std::string &log_token,
-             const uint64_t &nbr_samples, const std::string &first_sample_token,
+             const size_t &nbr_samples, const std::string &first_sample_token,
              const std::string &last_sample_token, const std::string &name,
              const std::string &description)
     : token(token),

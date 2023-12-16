@@ -20,8 +20,11 @@ class Visibility {
   const std::string &get_description() const;
 
   Visibility &operator=(const Visibility &) = default;
+  Visibility &operator=(Visibility &&) = default;
 
   Visibility() = delete;
+  Visibility(const Visibility &) = default;
+  Visibility(Visibility &&) = default;
   Visibility(const json &);
   Visibility(const std::string &, const std::string &, const std::string &);
   ~Visibility() = default;

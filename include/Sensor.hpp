@@ -20,8 +20,11 @@ class Sensor {
   const std::string &get_channel() const;
 
   Sensor &operator=(const Sensor &) = default;
+  Sensor &operator=(Sensor &&) = default;
 
   Sensor() = delete;
+  Sensor(const Sensor &) = default;
+  Sensor(Sensor &&) = default;
   Sensor(const json &);
   Sensor(const std::string &, const std::string &, const std::string &);
   ~Sensor() = default;
