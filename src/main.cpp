@@ -37,19 +37,19 @@ void bind_NuScenes(py::module &m) {
       .def_property_readonly("sensors", &NuScenes::get_sensors)
       .def_property_readonly("visibilities", &NuScenes::get_visibilities)
 
-      .def("get_annotation", &NuScenes::get_annotation)
-      .def("get_attribute", &NuScenes::get_attribute)
-      .def("get_calibrated_sensor", &NuScenes::get_calibrated_sensor)
-      .def("get_category", &NuScenes::get_category)
-      .def("get_ego_position", &NuScenes::get_ego_position)
-      .def("get_instance", &NuScenes::get_instance)
-      .def("get_log", &NuScenes::get_log)
-      .def("get_map", &NuScenes::get_map)
-      .def("get_sample", &NuScenes::get_sample)
-      .def("get_sample_data", &NuScenes::get_sample_data)
-      .def("get_scene", &NuScenes::get_scene)
-      .def("get_sensor", &NuScenes::get_sensor)
-      .def("get_visibility", &NuScenes::get_visibility);
+      .def("annotation", &NuScenes::get_annotation)
+      .def("attribute", &NuScenes::get_attribute)
+      .def("calibrated_sensor", &NuScenes::get_calibrated_sensor)
+      .def("category", &NuScenes::get_category)
+      .def("ego_position", &NuScenes::get_ego_position)
+      .def("instance", &NuScenes::get_instance)
+      .def("log", &NuScenes::get_log)
+      .def("map", &NuScenes::get_map)
+      .def("sample", &NuScenes::get_sample)
+      .def("sample_data", &NuScenes::get_sample_data)
+      .def("scene", &NuScenes::get_scene)
+      .def("sensor", &NuScenes::get_sensor)
+      .def("visibility", &NuScenes::get_visibility);
 }
 
 void bind_Annotation(py::module &m) {
