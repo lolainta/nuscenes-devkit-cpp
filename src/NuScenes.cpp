@@ -117,6 +117,10 @@ void NuScenes::reverse_index() {
   this->index_sample_datas();
   this->index_scenes();
 
+  for (auto &annotation : this->annotations) {
+    annotation.sample->annotations.push_back(&annotation);
+  }
+
   for (auto &instances : this->instances) {
     Annotation *first_annotation = instances.first_annotation;
     while (first_annotation != nullptr) {
@@ -140,8 +144,9 @@ void NuScenes::reverse_index() {
 
   for (auto &sample_data : this->datas) {
     if (sample_data.is_key_frame) {
-      sample_data.sample->datas[sample_data.calibrated_sensor->sensor] =
+      sample_data.sample->sensor_datas[sample_data.calibrated_sensor->sensor] =
           &sample_data;
+      sample_data.sample->datas.push_back(&sample_data);
     }
   }
 }
@@ -287,4 +292,111 @@ const std::vector<Sensor> &NuScenes::get_sensors() const {
 
 const std::vector<Visibility> &NuScenes::get_visibilities() const {
   return this->visibilities;
+}
+
+const Annotation &NuScenes::get_annotation(const std::string &token) const {
+  if (this->annotations_token2ptr.find(token) ==
+      this->annotations_token2ptr.end()) {
+    throw std::runtime_error("Annotation with token " + token +
+                             " does not exist.");
+  }
+  return *this->annotations_token2ptr.at(token);
+}
+
+const Attribute &NuScenes::get_attribute(const std::string &token) const {
+  if (this->attributes_token2ptr.find(token) ==
+      this->attributes_token2ptr.end()) {
+    throw std::runtime_error("Attribute with token " + token +
+                             " does not exist.");
+  }
+  return *this->attributes_token2ptr.at(token);
+}
+
+const CalibratedSensor &NuScenes::get_calibrated_sensor(
+    const std::string &token) const {
+  if (this->calibrated_sensors_token2ptr.find(token) ==
+      this->calibrated_sensors_token2ptr.end()) {
+    throw std::runtime_error("CalibratedSensor with token " + token +
+                             " does not exist.");
+  }
+  return *this->calibrated_sensors_token2ptr.at(token);
+}
+
+const Category &NuScenes::get_category(const std::string &token) const {
+  if (this->categories_token2ptr.find(token) ==
+      this->categories_token2ptr.end()) {
+    throw std::runtime_error("Category with token " + token +
+                             " does not exist.");
+  }
+  return *this->categories_token2ptr.at(token);
+}
+
+const EgoPosition &NuScenes::get_ego_position(const std::string &token) const {
+  if (this->ego_positions_token2ptr.find(token) ==
+      this->ego_positions_token2ptr.end()) {
+    throw std::runtime_error("EgoPosition with token " + token +
+                             " does not exist.");
+  }
+  return *this->ego_positions_token2ptr.at(token);
+}
+
+const Instance &NuScenes::get_instance(const std::string &token) const {
+  if (this->instances_token2ptr.find(token) ==
+      this->instances_token2ptr.end()) {
+    throw std::runtime_error("Instance with token " + token +
+                             " does not exist.");
+  }
+  return *this->instances_token2ptr.at(token);
+}
+
+const Log &NuScenes::get_log(const std::string &token) const {
+  if (this->logs_token2ptr.find(token) == this->logs_token2ptr.end()) {
+    throw std::runtime_error("Log with token " + token + " does not exist.");
+  }
+  return *this->logs_token2ptr.at(token);
+}
+
+const Map &NuScenes::get_map(const std::string &token) const {
+  if (this->maps_token2ptr.find(token) == this->maps_token2ptr.end()) {
+    throw std::runtime_error("Map with token " + token + " does not exist.");
+  }
+  return *this->maps_token2ptr.at(token);
+}
+
+const Sample &NuScenes::get_sample(const std::string &token) const {
+  if (this->samples_token2ptr.find(token) == this->samples_token2ptr.end()) {
+    throw std::runtime_error("Sample with token " + token + " does not exist.");
+  }
+  return *this->samples_token2ptr.at(token);
+}
+
+const SampleData &NuScenes::get_sample_data(const std::string &token) const {
+  if (this->datas_token2ptr.find(token) == this->datas_token2ptr.end()) {
+    throw std::runtime_error("SampleData with token " + token +
+                             " does not exist.");
+  }
+  return *this->datas_token2ptr.at(token);
+}
+
+const Scene &NuScenes::get_scene(const std::string &token) const {
+  if (this->scenes_token2ptr.find(token) == this->scenes_token2ptr.end()) {
+    throw std::runtime_error("Scene with token " + token + " does not exist.");
+  }
+  return *this->scenes_token2ptr.at(token);
+}
+
+const Sensor &NuScenes::get_sensor(const std::string &token) const {
+  if (this->sensors_token2ptr.find(token) == this->sensors_token2ptr.end()) {
+    throw std::runtime_error("Sensor with token " + token + " does not exist.");
+  }
+  return *this->sensors_token2ptr.at(token);
+}
+
+const Visibility &NuScenes::get_visibility(const std::string &token) const {
+  if (this->visibilities_token2ptr.find(token) ==
+      this->visibilities_token2ptr.end()) {
+    throw std::runtime_error("Visibility with token " + token +
+                             " does not exist.");
+  }
+  return *this->visibilities_token2ptr.at(token);
 }

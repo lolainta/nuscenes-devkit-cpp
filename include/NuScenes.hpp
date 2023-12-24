@@ -89,6 +89,7 @@ class NuScenes {
   const fs::path &get_dataroot() const;
   const std::string &get_version() const;
   const bool &get_verbose() const;
+
   const std::vector<Annotation> &get_annotations() const;
   const std::vector<Attribute> &get_attributes() const;
   const std::vector<CalibratedSensor> &get_calibrated_sensors() const;
@@ -103,7 +104,21 @@ class NuScenes {
   const std::vector<Sensor> &get_sensors() const;
   const std::vector<Visibility> &get_visibilities() const;
 
-    NuScenes &operator=(const NuScenes &) = default;
+  const Annotation &get_annotation(const std::string &) const;
+  const Attribute &get_attribute(const std::string &) const;
+  const CalibratedSensor &get_calibrated_sensor(const std::string &) const;
+  const Category &get_category(const std::string &) const;
+  const EgoPosition &get_ego_position(const std::string &) const;
+  const Instance &get_instance(const std::string &) const;
+  const Log &get_log(const std::string &) const;
+  const Map &get_map(const std::string &) const;
+  const Sample &get_sample(const std::string &) const;
+  const SampleData &get_sample_data(const std::string &) const;
+  const Scene &get_scene(const std::string &) const;
+  const Sensor &get_sensor(const std::string &) const;
+  const Visibility &get_visibility(const std::string &) const;
+
+  NuScenes &operator=(const NuScenes &) = default;
   NuScenes &operator=(NuScenes &&) = default;
 
   NuScenes() = delete;

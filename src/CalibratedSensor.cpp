@@ -29,3 +29,5 @@ const Translation &CalibratedSensor::get_translation() const {
 const Rotation &CalibratedSensor::get_rotation() const {
   return this->rotation;
 }
+
+const Sensor &CalibratedSensor::get_sensor() const { return *this->sensor; }

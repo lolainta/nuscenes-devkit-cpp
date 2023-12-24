@@ -25,10 +25,8 @@ def test_sample_data():
     assert isinstance(sample_data.width, int)
     assert isinstance(sample_data.filename, Path)
     assert sample_data.filename is not None
-    assert isinstance(sample_data.prev, str)
-    assert sample_data.prev is not None
-    assert isinstance(sample_data.next, str)
-    assert sample_data.next is not None
+    assert isinstance(sample_data.prev_token, str)
+    assert isinstance(sample_data.next_token, str)
 
 
 def test_sample_data_format():

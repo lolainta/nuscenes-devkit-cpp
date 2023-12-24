@@ -49,6 +49,12 @@ class SampleData {
   const std::string &get_prev_token() const;
   const std::string &get_next_token() const;
 
+  const Sample &get_sample() const;
+  const EgoPosition &get_ego_pose() const;
+  const CalibratedSensor &get_calibrated_sensor() const;
+  const SampleData &get_prev() const;
+  const SampleData &get_next() const;
+
   SampleData &operator=(const SampleData &) = default;
   SampleData &operator=(SampleData &&) = default;
 

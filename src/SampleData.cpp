@@ -1,6 +1,7 @@
 #include "SampleData.hpp"
 
-SampleData::SampleData(const std::string &token, const std::string &sample_token,
+SampleData::SampleData(const std::string &token,
+                       const std::string &sample_token,
                        const std::string &ego_pose_token,
                        const std::string &calibrated_sensor_token,
                        uint64_t timestamp, const std::string &fileformat,
@@ -70,3 +71,15 @@ const std::string &SampleData::get_prev_token() const {
 const std::string &SampleData::get_next_token() const {
   return this->next_token;
 }
+
+const Sample &SampleData::get_sample() const { return *this->sample; }
+
+const EgoPosition &SampleData::get_ego_pose() const { return *this->ego_pose; }
+
+const CalibratedSensor &SampleData::get_calibrated_sensor() const {
+  return *this->calibrated_sensor;
+}
+
+const SampleData &SampleData::get_prev() const { return *this->prev; }
+
+const SampleData &SampleData::get_next() const { return *this->next; }

@@ -33,6 +33,9 @@ class Instance {
   const std::string &get_first_annotation_token() const;
   const std::string &get_last_annotation_token() const;
 
+  const Category &get_category() const;
+  const std::vector<Annotation *> &get_annotations() const;
+
   Instance &operator=(const Instance &) = default;
   Instance &operator=(Instance &&) = default;
 

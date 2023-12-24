@@ -29,6 +29,8 @@ class Map {
   const std::string &get_category() const;
   const std::vector<std::string> &get_log_tokens() const;
 
+  const std::vector<Log *> &get_logs() const;
+
   Map &operator=(const Map &) = default;
   Map &operator=(Map &&) = default;
 

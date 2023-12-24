@@ -34,3 +34,9 @@ const std::string& Instance::get_first_annotation_token() const {
 const std::string& Instance::get_last_annotation_token() const {
   return this->last_annotation_token;
 }
+
+const Category& Instance::get_category() const { return *this->category; }
+
+const std::vector<Annotation*>& Instance::get_annotations() const {
+  return this->annotations;
+}

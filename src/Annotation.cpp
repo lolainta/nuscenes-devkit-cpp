@@ -66,3 +66,19 @@ const std::string &Annotation::get_prev_token() const {
 const std::string &Annotation::get_next_token() const {
   return this->next_token;
 }
+
+const Sample &Annotation::get_sample() const { return *this->sample; }
+
+const Instance &Annotation::get_instance() const { return *this->instance; }
+
+const Visibility &Annotation::get_visibility() const {
+  return *this->visibility;
+}
+
+const std::vector<Attribute *> &Annotation::get_attributes() const {
+  return this->attributes;
+}
+
+const Annotation &Annotation::get_prev() const { return *this->prev; }
+
+const Annotation &Annotation::get_next() const { return *this->next; }
