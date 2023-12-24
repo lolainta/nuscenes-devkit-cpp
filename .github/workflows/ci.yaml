@@ -1,0 +1,43 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Build
+        run: cmake -S . -B build && cmake --build build -j
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - name: Install Python Dependencies
+        run: pip3 install pytest
+      - name: Build
+        run: cmake -S . -B build && cmake --build build -j
+      - name: Download dataset
+        run: wget https://www.nuscenes.org/data/v1.0-mini.tgz
+      - name: Create data directory
+        run: rm -rf data; mkdir data
+      - name: Extract dataset
+        run: tar -xzf v1.0-mini.tgz -C data
+      - name: Test
+        run: python3 -m pytest
