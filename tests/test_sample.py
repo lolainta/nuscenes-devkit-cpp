@@ -15,7 +15,7 @@ def test_sample():
     assert isinstance(sample.scene_token, str)
     assert sample.scene_token is not None
     assert isinstance(sample.timestamp, int)
-    assert isinstance(sample.prev, str)
-    assert sample.prev is not None
-    assert isinstance(sample.next, str)
-    assert sample.next is not None
+    assert isinstance(sample.prev_token, str)
+    assert sample.prev_token is not None
+    assert isinstance(sample.next_token, str)
+    assert sample.next_token is not None

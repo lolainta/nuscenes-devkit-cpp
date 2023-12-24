@@ -22,7 +22,5 @@ def test_annotation():
     assert isinstance(ann.rotation, nuscenes.Rotation)
     assert isinstance(ann.size, list)
     assert all(len(a.size) == 3 for a in nusc.annotations)
-    assert isinstance(ann.prev, str)
-    assert ann.prev is not None
-    assert isinstance(ann.next, str)
-    assert ann.next is not None
+    assert isinstance(ann.prev_token, str)
+    assert isinstance(ann.next_token, str)

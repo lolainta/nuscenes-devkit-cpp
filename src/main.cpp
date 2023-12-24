@@ -178,8 +178,8 @@ void bind_Sample(py::module &m) {
       .def_property_readonly("token", &Sample::get_token)
       .def_property_readonly("scene_token", &Sample::get_scene_token)
       .def_property_readonly("timestamp", &Sample::get_timestamp)
-      .def_property_readonly("next", &Sample::get_next_token)
-      .def_property_readonly("prev", &Sample::get_prev_token)
+      .def_property_readonly("next_token", &Sample::get_next_token)
+      .def_property_readonly("prev_token", &Sample::get_prev_token)
 
       .def_property_readonly("annotations", &Sample::get_annotations)
       .def_property_readonly("datas", &Sample::get_datas);
