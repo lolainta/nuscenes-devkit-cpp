@@ -46,6 +46,13 @@ class Annotation {
   const std::string &get_prev_token() const;
   const std::string &get_next_token() const;
 
+  const Sample &get_sample() const;
+  const Instance &get_instance() const;
+  const Visibility &get_visibility() const;
+  const std::vector<Attribute *> &get_attributes() const;
+  const Annotation &get_prev() const;
+  const Annotation &get_next() const;
+
   Annotation &operator=(const Annotation &) = default;
   Annotation &operator=(Annotation &&) = default;
 

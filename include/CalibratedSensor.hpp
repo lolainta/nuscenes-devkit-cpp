@@ -27,6 +27,8 @@ class CalibratedSensor {
   const Translation &get_translation() const;
   const Rotation &get_rotation() const;
 
+  const Sensor &get_sensor() const;
+
   CalibratedSensor &operator=(const CalibratedSensor &) = default;
   CalibratedSensor &operator=(CalibratedSensor &&) = default;
 

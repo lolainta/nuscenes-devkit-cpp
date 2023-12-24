@@ -5,6 +5,7 @@
 
 #include "nlohmann/json.hpp"
 
+class Annotation;
 class Scene;
 class Sample;
 class Sensor;
@@ -26,7 +27,9 @@ class Sample {
   Sample *prev = nullptr;
   Sample *next = nullptr;
 
-  std::unordered_map<Sensor *, SampleData *> datas;
+  std::vector<Annotation *> annotations;
+  std::unordered_map<Sensor *, SampleData *> sensor_datas;
+  std::vector<SampleData *> datas;
 
  public:
   const std::string &get_token() const;
@@ -34,6 +37,9 @@ class Sample {
   const uint64_t &get_timestamp() const;
   const std::string &get_prev_token() const;
   const std::string &get_next_token() const;
+
+  const std::vector<Annotation *> &get_annotations() const;
+  const std::vector<SampleData *> &get_datas() const;
 
   Sample &operator=(const Sample &) = default;
   Sample &operator=(Sample &&) = default;

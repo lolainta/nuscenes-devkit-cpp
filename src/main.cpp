@@ -64,13 +64,21 @@ void bind_Annotation(py::module &m) {
       .def_property_readonly("translation", &Annotation::get_translation)
       .def_property_readonly("rotation", &Annotation::get_rotation)
       .def_property_readonly("size", &Annotation::get_size)
-      .def_property_readonly("prev", &Annotation::get_prev_token)
-      .def_property_readonly("next", &Annotation::get_next_token);
+      .def_property_readonly("prev_token", &Annotation::get_prev_token)
+      .def_property_readonly("next_token", &Annotation::get_next_token)
+
+      .def_property_readonly("sample", &Annotation::get_sample)
+      .def_property_readonly("instance", &Annotation::get_instance)
+      .def_property_readonly("visibility", &Annotation::get_visibility)
+      .def_property_readonly("attributes", &Annotation::get_attributes)
+      .def_property_readonly("prev", &Annotation::get_prev)
+      .def_property_readonly("next", &Annotation::get_next);
 }
 
 void bind_Attribute(py::module &m) {
   py::class_<Attribute>(m, "Attribute")
       .def_property_readonly("token", &Attribute::get_token)
+      .def_property_readonly("name", &Attribute::get_name)
       .def_property_readonly("description", &Attribute::get_description);
 }
 
@@ -80,7 +88,9 @@ void bind_CalibratedSensor(py::module &m) {
       .def_property_readonly("sensor_token",
                              &CalibratedSensor::get_sensor_token)
       .def_property_readonly("translation", &CalibratedSensor::get_translation)
-      .def_property_readonly("rotation", &CalibratedSensor::get_rotation);
+      .def_property_readonly("rotation", &CalibratedSensor::get_rotation)
+
+      .def_property_readonly("sensor", &CalibratedSensor::get_sensor);
 }
 
 void bind_Category(py::module &m) {
@@ -106,7 +116,10 @@ void bind_Instance(py::module &m) {
       .def_property_readonly("first_annotation_token",
                              &Instance::get_first_annotation_token)
       .def_property_readonly("last_annotation_token",
-                             &Instance::get_last_annotation_token);
+                             &Instance::get_last_annotation_token)
+
+      .def_property_readonly("category", &Instance::get_category)
+      .def_property_readonly("annotations", &Instance::get_annotations);
 }
 
 void bind_Log(py::module &m) {
@@ -123,7 +136,9 @@ void bind_Map(py::module &m) {
       .def_property_readonly("token", &Map::get_token)
       .def_property_readonly("filename", &Map::get_filename)
       .def_property_readonly("category", &Map::get_category)
-      .def_property_readonly("log_tokens", &Map::get_log_tokens);
+      .def_property_readonly("log_tokens", &Map::get_log_tokens)
+
+      .def_property_readonly("logs", &Map::get_logs);
 }
 
 void bind_Rotation(py::module &m) {
@@ -147,8 +162,15 @@ void bind_SampleData(py::module &m) {
       .def_property_readonly("height", &SampleData::get_height)
       .def_property_readonly("width", &SampleData::get_width)
       .def_property_readonly("filename", &SampleData::get_filename)
-      .def_property_readonly("prev", &SampleData::get_prev_token)
-      .def_property_readonly("next", &SampleData::get_next_token);
+      .def_property_readonly("prev_token", &SampleData::get_prev_token)
+      .def_property_readonly("next_token", &SampleData::get_next_token)
+
+      .def_property_readonly("sample", &SampleData::get_sample)
+      .def_property_readonly("ego_pose", &SampleData::get_ego_pose)
+      .def_property_readonly("calibrated_sensor",
+                             &SampleData::get_calibrated_sensor)
+      .def_property_readonly("prev", &SampleData::get_prev)
+      .def_property_readonly("next", &SampleData::get_next);
 }
 
 void bind_Sample(py::module &m) {
@@ -157,7 +179,10 @@ void bind_Sample(py::module &m) {
       .def_property_readonly("scene_token", &Sample::get_scene_token)
       .def_property_readonly("timestamp", &Sample::get_timestamp)
       .def_property_readonly("next", &Sample::get_next_token)
-      .def_property_readonly("prev", &Sample::get_prev_token);
+      .def_property_readonly("prev", &Sample::get_prev_token)
+
+      .def_property_readonly("annotations", &Sample::get_annotations)
+      .def_property_readonly("datas", &Sample::get_datas);
 }
 
 void bind_Scene(py::module &m) {
@@ -169,7 +194,10 @@ void bind_Scene(py::module &m) {
                              &Scene::get_first_sample_token)
       .def_property_readonly("last_sample_token", &Scene::get_last_sample_token)
       .def_property_readonly("name", &Scene::get_name)
-      .def_property_readonly("description", &Scene::get_description);
+      .def_property_readonly("description", &Scene::get_description)
+
+      .def_property_readonly("log", &Scene::get_log)
+      .def_property_readonly("samples", &Scene::get_samples);
 }
 
 void bind_Sensor(py::module &m) {

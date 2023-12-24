@@ -10,10 +10,12 @@ class Attribute {
 
  private:
   std::string token;
+  std::string name;
   std::string description;
 
  public:
   const std::string &get_token() const;
+  const std::string &get_name() const;
   const std::string &get_description() const;
 
   Attribute &operator=(const Attribute &) = default;
@@ -23,6 +25,6 @@ class Attribute {
   Attribute(const Attribute &) = default;
   Attribute(Attribute &&) = default;
   Attribute(const json &);
-  Attribute(const std::string &, const std::string &);
+  Attribute(const std::string &, const std::string &, const std::string &);
   ~Attribute() = default;
 };

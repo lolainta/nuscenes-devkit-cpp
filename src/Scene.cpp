@@ -38,3 +38,9 @@ const std::string &Scene::get_last_sample_token() const {
 const std::string &Scene::get_name() const { return this->name; }
 
 const std::string &Scene::get_description() const { return this->description; }
+
+const Log &Scene::get_log() const { return *this->log; }
+
+const std::vector<Sample *> &Scene::get_samples() const {
+  return this->samples;
+}

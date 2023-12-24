@@ -117,6 +117,10 @@ void NuScenes::reverse_index() {
   this->index_sample_datas();
   this->index_scenes();
 
+  for (auto &annotation : this->annotations) {
+    annotation.sample->annotations.push_back(&annotation);
+  }
+
   for (auto &instances : this->instances) {
     Annotation *first_annotation = instances.first_annotation;
     while (first_annotation != nullptr) {
@@ -140,8 +144,9 @@ void NuScenes::reverse_index() {
 
   for (auto &sample_data : this->datas) {
     if (sample_data.is_key_frame) {
-      sample_data.sample->datas[sample_data.calibrated_sensor->sensor] =
+      sample_data.sample->sensor_datas[sample_data.calibrated_sensor->sensor] =
           &sample_data;
+      sample_data.sample->datas.push_back(&sample_data);
     }
   }
 }

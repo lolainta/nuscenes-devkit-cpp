@@ -25,3 +25,11 @@ const uint64_t &Sample::get_timestamp() const { return this->timestamp; }
 const std::string &Sample::get_prev_token() const { return this->prev_token; }
 
 const std::string &Sample::get_next_token() const { return this->next_token; }
+
+const std::vector<Annotation *> &Sample::get_annotations() const {
+  return this->annotations;
+}
+
+const std::vector<SampleData *> &Sample::get_datas() const {
+  return this->datas;
+}

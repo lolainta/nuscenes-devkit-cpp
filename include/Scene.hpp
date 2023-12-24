@@ -37,6 +37,9 @@ class Scene {
   const std::string &get_name() const;
   const std::string &get_description() const;
 
+  const Log &get_log() const;
+  const std::vector<Sample *> &get_samples() const;
+
   Scene &operator=(const Scene &) = default;
   Scene &operator=(Scene &&) = default;
 

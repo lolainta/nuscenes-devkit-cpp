@@ -23,3 +23,5 @@ const std::string& Map::get_category() const { return this->category; }
 const std::vector<std::string>& Map::get_log_tokens() const {
   return this->log_tokens;
 }
+
+const std::vector<Log*>& Map::get_logs() const { return this->logs; }
