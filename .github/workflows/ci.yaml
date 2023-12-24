@@ -33,5 +33,9 @@ jobs:
         run: pip3 install pytest
       - name: Build
         run: cmake -S . -B build && cmake --build build -j
+      - name: Download dataset
+        run: wget https://www.nuscenes.org/data/v1.0-mini.tgz
+      - name: Extract dataset
+        run: tar -xzf v1.0-mini.tgz -C data
       - name: Test
         run: python3 -m pytest
