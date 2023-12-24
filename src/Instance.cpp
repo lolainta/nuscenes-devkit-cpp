@@ -40,3 +40,7 @@ const Category& Instance::get_category() const { return *this->category; }
 const std::vector<Annotation*>& Instance::get_annotations() const {
   return this->annotations;
 }
+
+void Instance::accept(const RecordVisitor& visitor) const {
+  visitor.visit(*this);
+}

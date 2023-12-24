@@ -1,11 +1,13 @@
 #pragma once
 #include <string>
 
+#include "Record.hpp"
+#include "RecordVisitor.hpp"
 #include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
 
-class Category {
+class Category : public Record {
   friend class NuScenes;
 
  private:
@@ -17,6 +19,8 @@ class Category {
   const std::string &get_token() const;
   const std::string &get_name() const;
   const std::string &get_description() const;
+
+  void accept(const RecordVisitor &visitor) const override;
 
   Category &operator=(const Category &) = default;
   Category &operator=(Category &&) = default;

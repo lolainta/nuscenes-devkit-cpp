@@ -44,3 +44,5 @@ const Log &Scene::get_log() const { return *this->log; }
 const std::vector<Sample *> &Scene::get_samples() const {
   return this->samples;
 }
+
+void Scene::accept(const RecordVisitor &visitor) const { visitor.visit(*this); }

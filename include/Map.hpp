@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "Record.hpp"
+#include "RecordVisitor.hpp"
 #include "enums.hpp"
 #include "nlohmann/json.hpp"
 
@@ -12,7 +14,7 @@ class Log;
 namespace fs = std::filesystem;
 using json = nlohmann::json;
 
-class Map {
+class Map : public Record {
   friend class NuScenes;
 
  private:
@@ -30,6 +32,8 @@ class Map {
   const std::vector<std::string> &get_log_tokens() const;
 
   const std::vector<Log *> &get_logs() const;
+
+  void accept(const RecordVisitor &visitor) const override;
 
   Map &operator=(const Map &) = default;
   Map &operator=(Map &&) = default;

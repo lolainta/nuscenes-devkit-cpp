@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "Record.hpp"
+#include "RecordVisitor.hpp"
 #include "Rotation.hpp"
 #include "Translation.hpp"
 #include "nlohmann/json.hpp"
@@ -10,7 +12,7 @@ class Sensor;
 
 using json = nlohmann::json;
 
-class CalibratedSensor {
+class CalibratedSensor : public Record {
   friend class NuScenes;
 
  private:
@@ -28,6 +30,8 @@ class CalibratedSensor {
   const Rotation &get_rotation() const;
 
   const Sensor &get_sensor() const;
+
+  void accept(const RecordVisitor &visitor) const override;
 
   CalibratedSensor &operator=(const CalibratedSensor &) = default;
   CalibratedSensor &operator=(CalibratedSensor &&) = default;

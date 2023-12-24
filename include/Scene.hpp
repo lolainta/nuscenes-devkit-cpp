@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "Record.hpp"
+#include "RecordVisitor.hpp"
 #include "nlohmann/json.hpp"
 
 class Log;
@@ -10,7 +12,7 @@ class Sample;
 
 using json = nlohmann::json;
 
-class Scene {
+class Scene : public Record {
   friend class NuScenes;
 
  private:
@@ -39,6 +41,8 @@ class Scene {
 
   const Log &get_log() const;
   const std::vector<Sample *> &get_samples() const;
+
+  void accept(const RecordVisitor &visitor) const override;
 
   Scene &operator=(const Scene &) = default;
   Scene &operator=(Scene &&) = default;

@@ -11,3 +11,7 @@ const long double &Translation::get_x() const { return this->x; }
 const long double &Translation::get_y() const { return this->y; }
 
 const long double &Translation::get_z() const { return this->z; }
+
+void Translation::accept(const RecordVisitor &visitor) const {
+  visitor.visit(*this);
+}

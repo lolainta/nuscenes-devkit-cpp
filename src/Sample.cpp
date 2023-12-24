@@ -33,3 +33,7 @@ const std::vector<Annotation *> &Sample::get_annotations() const {
 const std::vector<SampleData *> &Sample::get_datas() const {
   return this->datas;
 }
+
+void Sample::accept(const RecordVisitor &visitor) const {
+  visitor.visit(*this);
+}

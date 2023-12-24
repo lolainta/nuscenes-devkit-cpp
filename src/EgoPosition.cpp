@@ -23,3 +23,7 @@ const Rotation &EgoPosition::get_rotation() const { return this->rotation; }
 const Translation &EgoPosition::get_translation() const {
   return this->translation;
 }
+
+void EgoPosition::accept(const RecordVisitor &visitor) const {
+  visitor.visit(*this);
+}

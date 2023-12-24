@@ -82,3 +82,7 @@ const std::vector<Attribute *> &Annotation::get_attributes() const {
 const Annotation &Annotation::get_prev() const { return *this->prev; }
 
 const Annotation &Annotation::get_next() const { return *this->next; }
+
+void Annotation::accept(const RecordVisitor &visitor) const {
+  visitor.visit(*this);
+}

@@ -13,3 +13,7 @@ const long double &Rotation::get_y() const { return this->y; }
 const long double &Rotation::get_z() const { return this->z; }
 
 const long double &Rotation::get_w() const { return this->w; }
+
+void Rotation::accept(const RecordVisitor &visitor) const {
+  visitor.visit(*this);
+}
