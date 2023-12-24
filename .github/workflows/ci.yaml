@@ -27,5 +27,11 @@ jobs:
           submodules: true
       - name: Build
         run: cmake -S . -B build && cmake --build build
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+      - name: Install Python Dependencies
+        run: pip3 install pytest
       - name: Test
         run: python3 -m pytest
