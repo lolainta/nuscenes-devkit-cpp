@@ -16,3 +16,7 @@ const std::string &Attribute::get_name() const { return this->name; }
 const std::string &Attribute::get_description() const {
   return this->description;
 }
+
+void Attribute::accept(const RecordVisitor &visitor) const {
+  visitor.visit(*this);
+}

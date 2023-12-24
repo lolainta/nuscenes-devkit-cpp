@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "Record.hpp"
+#include "RecordVisitor.hpp"
 #include "nlohmann/json.hpp"
 
 class Category;
@@ -10,7 +12,7 @@ class Annotation;
 
 using json = nlohmann::json;
 
-class Instance {
+class Instance : public Record {
   friend class NuScenes;
 
  private:
@@ -35,6 +37,8 @@ class Instance {
 
   const Category &get_category() const;
   const std::vector<Annotation *> &get_annotations() const;
+
+  void accept(const RecordVisitor &visitor) const override;
 
   Instance &operator=(const Instance &) = default;
   Instance &operator=(Instance &&) = default;

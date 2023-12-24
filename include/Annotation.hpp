@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+#include "Record.hpp"
+#include "RecordVisitor.hpp"
 #include "Rotation.hpp"
 #include "Translation.hpp"
 #include "nlohmann/json.hpp"
@@ -12,7 +14,7 @@ class Visibility;
 
 using json = nlohmann::json;
 
-class Annotation {
+class Annotation : public Record {
   friend class NuScenes;
 
  private:
@@ -52,6 +54,8 @@ class Annotation {
   const std::vector<Attribute *> &get_attributes() const;
   const Annotation &get_prev() const;
   const Annotation &get_next() const;
+
+  void accept(const RecordVisitor &visitor) const override;
 
   Annotation &operator=(const Annotation &) = default;
   Annotation &operator=(Annotation &&) = default;

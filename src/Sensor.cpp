@@ -14,3 +14,7 @@ const std::string &Sensor::get_token() const { return this->token; }
 const std::string &Sensor::get_modality() const { return this->modality; }
 
 const std::string &Sensor::get_channel() const { return this->channel; }
+
+void Sensor::accept(const RecordVisitor &visitor) const {
+  visitor.visit(*this);
+}

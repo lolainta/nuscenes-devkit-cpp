@@ -16,3 +16,7 @@ const std::string &Visibility::get_level() const { return this->level; }
 const std::string &Visibility::get_description() const {
   return this->description;
 }
+
+void Visibility::accept(const RecordVisitor &visitor) const {
+  visitor.visit(*this);
+}

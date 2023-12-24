@@ -16,3 +16,7 @@ const std::string &Category::get_name() const { return this->name; }
 const std::string &Category::get_description() const {
   return this->description;
 }
+
+void Category::accept(const RecordVisitor &visitor) const {
+  visitor.visit(*this);
+}

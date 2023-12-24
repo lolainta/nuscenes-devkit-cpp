@@ -3,6 +3,8 @@
 #include <filesystem>
 #include <string>
 
+#include "Record.hpp"
+#include "RecordVisitor.hpp"
 #include "nlohmann/json.hpp"
 
 class Sample;
@@ -12,7 +14,7 @@ class CalibratedSensor;
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
-class SampleData {
+class SampleData : public Record {
   friend class NuScenes;
 
  private:
@@ -54,6 +56,8 @@ class SampleData {
   const CalibratedSensor &get_calibrated_sensor() const;
   const SampleData &get_prev() const;
   const SampleData &get_next() const;
+
+  void accept(const RecordVisitor &visitor) const override;
 
   SampleData &operator=(const SampleData &) = default;
   SampleData &operator=(SampleData &&) = default;

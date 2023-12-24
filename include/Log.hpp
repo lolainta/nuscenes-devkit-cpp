@@ -3,13 +3,15 @@
 #include <filesystem>
 #include <string>
 
+#include "Record.hpp"
+#include "RecordVisitor.hpp"
 #include "enums.hpp"
 #include "nlohmann/json.hpp"
 
 namespace fs = std::filesystem;
 using json = nlohmann::json;
 
-class Log {
+class Log : public Record {
   friend class NuScenes;
 
  private:
@@ -25,6 +27,8 @@ class Log {
   const std::string &get_vehicle() const;
   const std::string &get_date_captured() const;
   const Location &get_location() const;
+
+  void accept(const RecordVisitor &visitor) const override;
 
   Log &operator=(const Log &) = default;
   Log &operator=(Log &&) = default;

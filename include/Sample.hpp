@@ -3,6 +3,8 @@
 #include <string>
 #include <unordered_map>
 
+#include "Record.hpp"
+#include "RecordVisitor.hpp"
 #include "nlohmann/json.hpp"
 
 class Annotation;
@@ -13,7 +15,7 @@ class SampleData;
 
 using json = nlohmann::json;
 
-class Sample {
+class Sample : public Record {
   friend class NuScenes;
 
  private:
@@ -40,6 +42,8 @@ class Sample {
 
   const std::vector<Annotation *> &get_annotations() const;
   const std::vector<SampleData *> &get_datas() const;
+
+  void accept(const RecordVisitor &visitor) const override;
 
   Sample &operator=(const Sample &) = default;
   Sample &operator=(Sample &&) = default;

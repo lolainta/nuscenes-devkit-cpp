@@ -2,11 +2,13 @@
 
 #include <string>
 
+#include "Record.hpp"
+#include "RecordVisitor.hpp"
 #include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
 
-class Sensor {
+class Sensor : public Record {
   friend class NuScenes;
 
  private:
@@ -18,6 +20,8 @@ class Sensor {
   const std::string &get_token() const;
   const std::string &get_modality() const;
   const std::string &get_channel() const;
+
+  void accept(const RecordVisitor &visitor) const override;
 
   Sensor &operator=(const Sensor &) = default;
   Sensor &operator=(Sensor &&) = default;

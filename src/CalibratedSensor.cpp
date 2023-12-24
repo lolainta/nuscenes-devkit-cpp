@@ -31,3 +31,7 @@ const Rotation &CalibratedSensor::get_rotation() const {
 }
 
 const Sensor &CalibratedSensor::get_sensor() const { return *this->sensor; }
+
+void CalibratedSensor::accept(const RecordVisitor &visitor) const {
+  visitor.visit(*this);
+}

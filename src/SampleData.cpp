@@ -83,3 +83,7 @@ const CalibratedSensor &SampleData::get_calibrated_sensor() const {
 const SampleData &SampleData::get_prev() const { return *this->prev; }
 
 const SampleData &SampleData::get_next() const { return *this->next; }
+
+void SampleData::accept(const RecordVisitor &visitor) const {
+  visitor.visit(*this);
+}

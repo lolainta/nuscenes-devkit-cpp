@@ -39,3 +39,5 @@ const std::string& Log::get_date_captured() const {
 }
 
 const Location& Log::get_location() const { return this->location; }
+
+void Log::accept(const RecordVisitor& visitor) const { visitor.visit(*this); }

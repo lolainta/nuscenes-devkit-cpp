@@ -25,3 +25,5 @@ const std::vector<std::string>& Map::get_log_tokens() const {
 }
 
 const std::vector<Log*>& Map::get_logs() const { return this->logs; }
+
+void Map::accept(const RecordVisitor& visitor) const { visitor.visit(*this); }
