@@ -36,7 +36,7 @@ jobs:
       - name: Download dataset
         run: wget https://www.nuscenes.org/data/v1.0-mini.tgz
       - name: Create data directory
-        run: mkdir data
+        run: rm -rf data; mkdir data
       - name: Extract dataset
         run: tar -xzf v1.0-mini.tgz -C data
       - name: Test
